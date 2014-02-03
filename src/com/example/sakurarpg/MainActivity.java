@@ -11,12 +11,12 @@ public class MainActivity extends Activity {
 	 @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //‰æ–Ê‚ğc•ûŒü‚ÅŒÅ’è‚·‚é
+        //ç”»é¢ã‚’ç¸¦æ–¹å‘ã§å›ºå®šã™ã‚‹
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        //ƒŒƒCƒAƒEƒg‚ğ—pˆÓ‚·‚é
+        //ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆã‚’ç”¨æ„ã™ã‚‹
         LinearLayout l = new LinearLayout(this);
         setContentView(l);
-        //View‚ğƒZƒbƒg‚·‚é
+        //Viewã‚’ã‚»ãƒƒãƒˆã™ã‚‹
         l.addView(new mainView(this));
     }
     
