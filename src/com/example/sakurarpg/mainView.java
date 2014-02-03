@@ -22,7 +22,7 @@ import android.graphics.Paint;
 
 public class mainView extends View {
 	private Paint paint = new Paint();
-	//ç”»åƒèª­ã¿è¾¼ã¿
+	//‰æ‘œ“Ç‚İ‚İ
     private Resources res = this.getContext().getResources();
     private final Bitmap IMG_LIGHT = BitmapFactory.decodeResource(res, R.drawable.light);
     
@@ -33,13 +33,13 @@ public class mainView extends View {
 	}
 
 	    
-	//æå†™å‡¦ç†
+	//•`Êˆ—
     @Override
     public void onDraw(Canvas c) {
     	c.drawBitmap(IMG_LIGHT, touch_x, touch_y, paint);
     }
     
-    //ã‚¿ãƒƒãƒå…¥åŠ›å‡¦ç†
+    //ƒ^ƒbƒ`“ü—Íˆ—
     public boolean onTouchEvent(MotionEvent me) {
     	touch_x = (int)(me.getX());
     	touch_y = (int)(me.getY());
