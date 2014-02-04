@@ -1,7 +1,5 @@
 package com.example.sakurarpg;
 
-
-
 //	import android.view.MotionEvent;
 
 import android.content.Context;
@@ -13,64 +11,65 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 public class mainView extends SurfaceView implements SurfaceHolder.Callback {
-	private Context				mContext;	// ƒRƒ“ƒeƒLƒXƒg
-	private testImageView		mThread;	// ƒXƒŒƒbƒh‚ÌƒCƒ“ƒXƒ^ƒ“ƒX
-	
+	private Context mContext; // ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
+	private testImageView mThread; // ã‚¹ãƒ¬ãƒƒãƒ‰ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
+
 	public mainView(Context context) {
 		super(context);
 
-		// ƒRƒ“ƒeƒLƒXƒg‚ğƒƒ“ƒo[•Ï”‚É‘ã“ü
+		// ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆã‚’ãƒ¡ãƒ³ãƒãƒ¼å¤‰æ•°ã«ä»£å…¥
 		this.mContext = context;
 
-		//ƒT[ƒtƒFƒCƒXƒzƒ‹ƒ_[‚ğæ“¾(SurfaceView)
+		//ã‚µãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ãƒ›ãƒ«ãƒ€ãƒ¼ã‚’å–å¾—(SurfaceView)
 		SurfaceHolder holder = getHolder();
 
-		// ƒR[ƒ‹ƒoƒbƒN‚ğİ’è(SurfaceHolder)
+		// ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯ã‚’è¨­å®š(SurfaceHolder)
 		holder.addCallback(this);
 
-		// ƒL[ƒCƒxƒ“ƒg‚ªæ“¾‚Å‚«‚é‚æ‚¤‚ÉƒtƒH[ƒJƒX‚ğó‚¯æ‚ê‚é‚æ‚¤‚É‚µ‚Ä‚¨‚­
+		// ã‚­ãƒ¼ã‚¤ãƒ™ãƒ³ãƒˆãŒå–å¾—ã§ãã‚‹ã‚ˆã†ã«ãƒ•ã‚©ãƒ¼ã‚«ã‚¹ã‚’å—ã‘å–ã‚Œã‚‹ã‚ˆã†ã«ã—ã¦ãŠã
 		setFocusable(true);
 	}
-	// ************** SurfaceHolder.Callback‚Ì‚RŒZ’í **********************
-	// surface¶¬‚ÉƒR[ƒ‹ƒoƒbƒN‚³‚ê‚é
+	// ************** SurfaceHolder.Callbackã®ï¼“å…„å¼Ÿ **********************
+	// surfaceç”Ÿæˆæ™‚ã«ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯ã•ã‚Œã‚‹
 	@Override
 	public void surfaceCreated(SurfaceHolder holder) {
-		// ƒXƒŒƒbƒh¶¬‚µƒCƒ“ƒXƒ^ƒ“ƒX‰»
+		// ã‚¹ãƒ¬ãƒƒãƒ‰ç”Ÿæˆã—ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åŒ–
 		mThread = new testImageView(holder, mContext);
 
-		// ƒXƒŒƒbƒh“à‚ÌƒƒCƒ“ƒ‹[ƒv“®ì‚ğ‹–‰Â‚·‚é
-		// æ‚É“®ì‹–‰Â‚µ‚Ä‚¨‚©‚È‚¢‚ÆƒXƒŒƒbƒh‹N“®‚µ‚Ä‚à’¼‚®I—¹‚µ‚Ä‚µ‚Ü‚¤
+		// ã‚¹ãƒ¬ãƒƒãƒ‰å†…ã®ãƒ¡ã‚¤ãƒ³ãƒ«ãƒ¼ãƒ—å‹•ä½œã‚’è¨±å¯ã™ã‚‹
+		// å…ˆã«å‹•ä½œè¨±å¯ã—ã¦ãŠã‹ãªã„ã¨ã‚¹ãƒ¬ãƒƒãƒ‰èµ·å‹•ã—ã¦ã‚‚ç›´ãçµ‚äº†ã—ã¦ã—ã¾ã†
 		mThread.enableRunning(true);
 
-		// ƒXƒŒƒbƒh‚ğ‹N“®‚·‚é
+		// ã‚¹ãƒ¬ãƒƒãƒ‰ã‚’èµ·å‹•ã™ã‚‹
 		try {
 			mThread.start();
 		} catch (IllegalThreadStateException e) {
-			// ƒXƒŒƒbƒh‹N“®¸”s
+			// ã‚¹ãƒ¬ãƒƒãƒ‰èµ·å‹•å¤±æ•—
 		}
 	}
 
-	// surface•ÏX‚ÉƒR[ƒ‹ƒoƒbƒN‚³‚ê‚é
+	// surfaceå¤‰æ›´æ™‚ã«ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯ã•ã‚Œã‚‹
 	@Override
 	public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
 	}
 
-	// surface”jŠü‚ÉƒR[ƒ‹ƒoƒbƒN‚³‚ê‚é
+	// surfaceç ´æ£„æ™‚ã«ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯ã•ã‚Œã‚‹
 	@Override
 	public void surfaceDestroyed(SurfaceHolder holder) {
-		// ƒXƒŒƒbƒh“à‚ÌƒƒCƒ“ƒ‹[ƒv“®ì‚ğ’â~‚·‚é
+		// ã‚¹ãƒ¬ãƒƒãƒ‰å†…ã®ãƒ¡ã‚¤ãƒ³ãƒ«ãƒ¼ãƒ—å‹•ä½œã‚’åœæ­¢ã™ã‚‹
 		mThread.enableRunning(false);
-
-		// ƒXƒŒƒbƒh‚ğŠmÀ‚É’â~‚³‚¹‚é‚½‚ßwhile‚Åƒ‹[ƒv‚³‚¹‚é
+	
+		// ã‚¹ãƒ¬ãƒƒãƒ‰ã‚’ç¢ºå®Ÿã«åœæ­¢ã•ã›ã‚‹ãŸã‚whileã§ãƒ«ãƒ¼ãƒ—ã•ã›ã‚‹
 		while (true) {
 			try {
-				// ƒXƒŒƒbƒh‚ğ’â~‚³‚¹‚é
+				// ã‚¹ãƒ¬ãƒƒãƒ‰ã‚’åœæ­¢ã•ã›ã‚‹
 				mThread.join();
 				break;
 			} catch (InterruptedException e) {
+			
 			}
-		}
-	}
+		} 
+	} 
 }
 
 /*

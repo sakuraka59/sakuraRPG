@@ -15,7 +15,7 @@ public class MainActivity extends Activity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         // no drow title
    		requestWindowFeature(Window.FEATURE_NO_TITLE);
-   		// GameView‚ð‰æ–Ê‚Æ‚µ‚ÄƒZƒbƒg‚·‚é
+   		// GameView
    		mainView mainView = new mainView(this);
    		setContentView(mainView);
    		/*

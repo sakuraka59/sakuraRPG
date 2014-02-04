@@ -1,8 +1,5 @@
 package com.example.sakurarpg;
 
-
-
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -14,128 +11,133 @@ import android.graphics.Rect;
 import android.view.SurfaceHolder;
 
 class testImageView extends Thread {
-	// ƒVƒXƒeƒ€‘S‘Ì‚Ì•Ï”
-	private SurfaceHolder		mHolder;							// ƒT[ƒtƒFƒCƒXƒzƒ‹ƒ_[
+	// ï¿½Vï¿½Xï¿½eï¿½ï¿½ï¿½Sï¿½Ì‚Ì•Ïï¿½
+	private SurfaceHolder		mHolder;							// ï¿½Tï¿½[ï¿½tï¿½Fï¿½Cï¿½Xï¿½zï¿½ï¿½ï¿½_ï¿½[
 
-	// ƒXƒŒƒbƒhŠÖŒW
-	private static final int	CYCLE_TIME	= 50;					// ƒTƒCƒNƒ‹ƒ^ƒCƒ€=50ms
+	// ï¿½Xï¿½ï¿½ï¿½bï¿½hï¿½ÖŒW
+	private static final int	CYCLE_TIME	= 50;					// ï¿½Tï¿½Cï¿½Nï¿½ï¿½ï¿½^ï¿½Cï¿½ï¿½=50ms
 
-	// ‰æ‘œŠÖŒW
-	private Bitmap				imgVdGame;							// ‰¼‘z‰æ–Ê‚ðƒrƒbƒgƒ}ƒbƒv‰»‚µ‚½ƒCƒ[ƒW(Game)
-	private Bitmap				imgEnemy;							// “G‰æ‘œ
-	private Rect				rctEnemyOriginalSize;				// “G‚ÌƒIƒŠƒWƒiƒ‹‰æ‘œƒTƒCƒY
+	// ï¿½æ‘œï¿½ÖŒW
+	private Bitmap				imgVdGame;							// ï¿½ï¿½ï¿½zï¿½ï¿½Ê‚ï¿½rï¿½bï¿½gï¿½}ï¿½bï¿½vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½W(Game)
+	private Bitmap				imgEnemy;							// ï¿½Gï¿½æ‘œ
+	private Rect				rctEnemyOriginalSize;				// ï¿½Gï¿½ÌƒIï¿½ï¿½ï¿½Wï¿½iï¿½ï¿½ï¿½æ‘œï¿½Tï¿½Cï¿½Y
 
-	// ‰æ–ÊŠÖŒW
-	private static final int	VD_WIDTH	= 480;					// ‰¼‘z‰æ–Êi•j
-	private static final int	VD_HEIGHT	= 854;					// ‰¼‘z‰æ–Êi‚‚³j
+	// ï¿½ï¿½ÊŠÖŒW
+	private static final int	VD_WIDTH	= 480;					// ï¿½ï¿½ï¿½zï¿½ï¿½Êiï¿½ï¿½ï¿½j
+	private static final int	VD_HEIGHT	= 854;					// ï¿½ï¿½ï¿½zï¿½ï¿½Êiï¿½ï¿½ï¿½ï¿½ï¿½j
 
-	// ŠeŽíƒtƒ‰ƒO
-	private boolean				bRunning	= false;				// ƒƒCƒ“ƒ‹[ƒv“®ìƒtƒ‰ƒOiŠO•”ƒAƒNƒZƒXj
+	// ï¿½eï¿½ï¿½tï¿½ï¿½ï¿½O
+	private boolean				bRunning	= false;				// ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½vï¿½ï¿½ï¿½ï¿½tï¿½ï¿½ï¿½Oï¿½iï¿½Oï¿½ï¿½ï¿½Aï¿½Nï¿½Zï¿½Xï¿½j
 
-/*********************** ŠO•”‚©‚çŒÄ‚Î‚ê‚éƒƒ\ƒbƒh ***********************/
-	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	testOtherObject hoge;
+	
+/*********************** ï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚Î‚ï¿½éƒï¿½\ï¿½bï¿½h ***********************/
+	// ï¿½Rï¿½ï¿½ï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^
 	public testImageView(SurfaceHolder surfaceHolder, Context context) {
 		this.mHolder = surfaceHolder;
 
-		// ƒŠƒ\[ƒX‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ðŽæ“¾
+		// ï¿½ï¿½ï¿½\ï¿½[ï¿½Xï¿½ÌƒCï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½Xï¿½ï¿½æ“¾
 		Resources r = context.getResources();
 
-		// Še‰æ‘œ‚ðƒCƒ“ƒXƒ^ƒ“ƒX‰»
+		// ï¿½eï¿½æ‘œï¿½ï¿½Cï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½Xï¿½ï¿½
 		imgVdGame = Bitmap.createBitmap(VD_WIDTH, VD_HEIGHT, Bitmap.Config.ARGB_8888);
 		imgEnemy = BitmapFactory.decodeResource(r, R.drawable.light);
 
-		// “G‰æ‘œ‚ÌƒIƒŠƒWƒiƒ‹ƒTƒCƒY‚ðŽæ“¾
+		// ï¿½Gï¿½æ‘œï¿½ÌƒIï¿½ï¿½ï¿½Wï¿½iï¿½ï¿½ï¿½Tï¿½Cï¿½Yï¿½ï¿½æ“¾
 		rctEnemyOriginalSize = new Rect(0, 0, imgEnemy.getWidth(), imgEnemy.getHeight());
+		
+		hoge = new testOtherObject(context);
+		
 	}
 
-	// ƒƒCƒ“ƒ‹[ƒv‚Ì“®ì‹–‰ÂÝ’è
+	// ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½vï¿½Ì“ï¿½ï¿½ì‹–ï¿½Ý’ï¿½
 	public void enableRunning(boolean flag) {
-		this.bRunning = flag;		// ƒƒCƒ“ƒ‹[ƒv“®ì‹–‰Â
+		this.bRunning = flag;		// ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½vï¿½ï¿½ï¿½ì‹–ï¿½ï¿½
 	}
 
-/*********************** “à•”ˆ— ***********************/
-// ***** “G‚Ìˆ— *****
-	// “G‚Ì“®ì
-	public Rect		rctOriginalCurrentSize;	// ƒIƒŠƒWƒiƒ‹ƒTƒCƒY‚Ì“G‰æ‘œ‚ÌŒ»Ý‚ÌnCount‚É‰ž‚¶‚½ƒTƒCƒY
-	public Rect		rctCurrentArea;			// ‰¼‘z‰æ–Êã‚ÌŒ»Ý‚Ìè—LÀ•W
-	public int		nCount = 1;				// bAlive=true, bAppearance=true‚Ì‚Æ‚«oŒ»Žž‚Ì“®ìi‚O¨MAXj
-											// balive=true, bAppearance=false‚Ì‚Æ‚« ˆø‚Áž‚ÞŽž‚Ì“®ìiMAX¨‚Oj
-											// bAlive=false‚Ì‚Æ‚«‚Í‚â‚ç‚ê‚½‚Æ‚«‚Ì“®ìi‚O`MAXF‚â‚ç‚êˆ—j
-	public int		nAddition = +1;			// nCount‚Ì‘•ª
+/*********************** ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ***********************/
+// ***** ï¿½Gï¿½Ìï¿½ï¿½ï¿½ *****
+	// ï¿½Gï¿½Ì“ï¿½ï¿½ï¿½
+	public Rect		rctOriginalCurrentSize;	// ï¿½Iï¿½ï¿½ï¿½Wï¿½iï¿½ï¿½ï¿½Tï¿½Cï¿½Yï¿½Ì“Gï¿½æ‘œï¿½ÌŒï¿½ï¿½Ý‚ï¿½nCountï¿½É‰ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Tï¿½Cï¿½Y
+	public Rect		rctCurrentArea;			// ï¿½ï¿½ï¿½zï¿½ï¿½Êï¿½ÌŒï¿½ï¿½Ý‚Ìï¿½Lï¿½ï¿½W
+	public int		nCount = 1;				// bAlive=true, bAppearance=trueï¿½Ì‚Æ‚ï¿½ï¿½oï¿½ï¿½ï¿½ï¿½ï¿½Ì“ï¿½ï¿½ï¿½iï¿½Oï¿½ï¿½MAXï¿½j
+											// balive=true, bAppearance=falseï¿½Ì‚Æ‚ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ÞŽï¿½ï¿½Ì“ï¿½ï¿½ï¿½iMAXï¿½ï¿½ï¿½Oï¿½j
+											// bAlive=falseï¿½Ì‚Æ‚ï¿½ï¿½Í‚ï¿½ï¿½ê‚½ï¿½Æ‚ï¿½ï¿½Ì“ï¿½ï¿½ï¿½iï¿½Oï¿½`MAXï¿½Fï¿½ï¿½ï¿½êˆï¿½ï¿½ï¿½j
+	public int		nAddition = +1;			// nCountï¿½Ì‘ï¿½ï¿½ï¿½
 
-	private static final int	ENEMY_COUNT_MAX = 10;				// “G‚ÌÅ‘å“®ì‰ñ”
+	private static final int	ENEMY_COUNT_MAX = 10;				// ï¿½Gï¿½ÌÅ‘å“®ï¿½ï¿½ï¿½
 
 	private void moveEnemy() {
 		if(0 >= nCount) {
-			// ˆø‚Áž‚Ý‚«‚Á‚½‚Ì‚ÅÜ‚è•Ô‚µ‚ÄoŒ»‚³‚¹‚é
+			// ï¿½ï¿½ï¿½ï¿½ï¿½Ý‚ï¿½ï¿½ï¿½ï¿½ï¿½Ì‚ÅÜ‚ï¿½Ô‚ï¿½ï¿½Äoï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			nAddition = +1;
 		} else if(0 < nAddition && ENEMY_COUNT_MAX <= nCount) {
-			// Å‘åƒTƒCƒY‚Ü‚ÅoŒ»‚µ‚½ê‡
-			// ‘•ª‚ðƒ}ƒCƒiƒX‚É‚·‚é
+			// ï¿½Å‘ï¿½Tï¿½Cï¿½Yï¿½Ü‚Åoï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‡
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½}ï¿½Cï¿½iï¿½Xï¿½É‚ï¿½ï¿½ï¿½
 			nAddition = -1;
 		} else {
-			;	// “Á‚É‰½‚à‚µ‚È‚¢
+			;	// ï¿½ï¿½É‰ï¿½ï¿½ï¿½ï¿½È‚ï¿½
 		}
-		// nCount‚ð‰ÁŽZ‚·‚é
+		// nCountï¿½ï¿½ï¿½Zï¿½ï¿½ï¿½ï¿½
 		nCount += nAddition;
 
-		// ƒIƒŠƒWƒiƒ‹ƒTƒCƒY‚Ì“G‰æ‘œ‚ÌƒTƒCƒY‚ðXV
-		// nCount‚©‚ç‚‚³‚ðŽZo
+		// ï¿½Iï¿½ï¿½ï¿½Wï¿½iï¿½ï¿½ï¿½Tï¿½Cï¿½Yï¿½Ì“Gï¿½æ‘œï¿½ÌƒTï¿½Cï¿½Yï¿½ï¿½Xï¿½V
+		// nCountï¿½ï¿½ï¿½ç‚ï¿½ï¿½ï¿½ï¿½Zï¿½o
 		int height = (int)(rctEnemyOriginalSize.bottom * nCount / ENEMY_COUNT_MAX);
 		rctOriginalCurrentSize = new Rect(rctEnemyOriginalSize.left, rctEnemyOriginalSize.top,
 				rctEnemyOriginalSize.right, height);
 
-		// Œ»Ý‚Ì“G‚ÌÀ•W‚ðXV
-		// ‚Ü‚¸‚ÍnCount‚©‚ç‚‚³‚ðŽZo
+		// ï¿½ï¿½ï¿½Ý‚Ì“Gï¿½Ìï¿½Wï¿½ï¿½Xï¿½V
+		// ï¿½Ü‚ï¿½ï¿½ï¿½nCountï¿½ï¿½ï¿½ç‚ï¿½ï¿½ï¿½ï¿½Zï¿½o
 		height = (int)(rctEnemyOriginalSize.bottom * nCount / ENEMY_COUNT_MAX);
 		rctCurrentArea = new Rect(rctEnemyOriginalSize.left, rctEnemyOriginalSize.bottom - height,
 				rctEnemyOriginalSize.right, rctEnemyOriginalSize.bottom);
 	}
 
-// ***** ‰æ–ÊŠÖŒW‚Ìˆ— *****
-	// ‰¼‘z‰æ–Êiƒrƒbƒgƒ}ƒbƒvj‚ð¶¬‚·‚é
+// ***** ï¿½ï¿½ÊŠÖŒWï¿½Ìï¿½ï¿½ï¿½ *****
+	// ï¿½ï¿½ï¿½zï¿½ï¿½Êiï¿½rï¿½bï¿½gï¿½}ï¿½bï¿½vï¿½jï¿½ð¶ï¿½ï¿½ï¿½ï¿½ï¿½
 	private void genVirtualDisplay() {
-		// ‰¼‘z‰æ–Ê‚Ì‰º’n‚ð¶¬
+		// ï¿½ï¿½ï¿½zï¿½ï¿½Ê‚Ì‰ï¿½ï¿½nï¿½ð¶ï¿½
 		Canvas canvas = new Canvas(imgVdGame);
 
-		// Paint‚ðƒCƒ“ƒXƒ^ƒ“ƒX‰»
+		// Paintï¿½ï¿½Cï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½Xï¿½ï¿½
 		Paint paint =new Paint();
 		paint.setAntiAlias(true);
 		paint.setColor(Color.argb(255, 255, 255, 255));
 
-		// ”wŒi‚ð“h‚è‚Â‚Ô‚µ
+		// ï¿½wï¿½iï¿½ï¿½hï¿½ï¿½Ô‚ï¿½
 		canvas.drawColor(Color.argb(255, 0, 0, 32));
 
-		// “G‚Ì“\‚è•t‚¯
+		// ï¿½Gï¿½Ì“\ï¿½ï¿½tï¿½ï¿½
 		canvas.drawBitmap(imgEnemy, rctOriginalCurrentSize, rctCurrentArea, paint);
 	}
 
-// ***** ‰æ–ÊŠÖŒW‚Ìˆ— *****
-	// bmp‚ð‰æ–Ê‚É“\‚è•t‚¯
+// ***** ï¿½ï¿½ÊŠÖŒWï¿½Ìï¿½ï¿½ï¿½ *****
+	// bmpï¿½ï¿½ï¿½Ê‚É“\ï¿½ï¿½tï¿½ï¿½
 	private void doDraw(Canvas canvas) {
-		// Paint‚ðƒCƒ“ƒXƒ^ƒ“ƒX‰»
+		// Paintï¿½ï¿½Cï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½Xï¿½ï¿½
 		Paint paint=new Paint();
 		paint.setAntiAlias(true);
 		paint.setColor(Color.argb(255, 255, 255, 255));
 
-		// ”wŒi‚ð“h‚è‚Â‚Ô‚µ
+		// ï¿½wï¿½iï¿½ï¿½hï¿½ï¿½Ô‚ï¿½
 		canvas.drawColor(Color.argb(255, 0, 0, 32));
 
-		// ¶¬‚µ‚½bmpi‰¼‘z‰æ–Êj‚ð‰æ–Ê‚É•\Ž¦
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½bmpï¿½iï¿½ï¿½ï¿½zï¿½ï¿½Êjï¿½ï¿½ï¿½Ê‚É•\ï¿½ï¿½
 		canvas.drawBitmap(imgVdGame, 0, 0, paint);
 	}
 
-// ***** ƒƒCƒ“ˆ— *****
+// ***** ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ *****
 	private void main() {
-		// “Gî•ñXV
+		// ï¿½Gï¿½ï¿½ï¿½Xï¿½V
 		moveEnemy();
 
-		// ‰¼‘z‰æ–Ê¶¬
+		// ï¿½ï¿½ï¿½zï¿½ï¿½Êï¿½ï¿½ï¿½
 		genVirtualDisplay();
 	}
 
-/*********************** ƒƒCƒ“ƒ‹[ƒv ***********************/
-	// ƒXƒŒƒbƒh‚ð‹N“®‚·‚é‚ÆŒÄ‚Î‚ê‚é
+/*********************** ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½v ***********************/
+	// ï¿½Xï¿½ï¿½ï¿½bï¿½hï¿½ï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÆŒÄ‚Î‚ï¿½ï¿½
 	@Override
 	public void run() {
 		long lastTime = System.currentTimeMillis();
@@ -144,20 +146,21 @@ class testImageView extends Thread {
 		long loop_time = 0;
 		long sleep_time = 0;
 		while(bRunning) {
-			// ƒ‹[ƒvŠJŽnŽž‚ð‹L˜^
+			// ï¿½ï¿½ï¿½[ï¿½vï¿½Jï¿½nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Lï¿½^
 			start_time = System.currentTimeMillis();
 
-			// ƒƒCƒ“ˆ—
+			// ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			main();
 
 			Canvas canvas = null;
 			try {
-				// •`‰æ‚ðŠJŽn‚ðéŒ¾
+				// ï¿½`ï¿½ï¿½ï¿½Jï¿½nï¿½ï¿½éŒ¾
 				canvas = mHolder.lockCanvas(null);
 
-				// ‰æ–Ê‚ð•\Ž¦
+				// ï¿½ï¿½Ê‚ï¿½\ï¿½ï¿½
 				doDraw(canvas);
 
+				hoge.doDraw(canvas);
 				{	// for Debug
 					Paint paint=new Paint();
 					paint.setAntiAlias(true);
@@ -172,18 +175,18 @@ class testImageView extends Thread {
 			} catch(Exception e) {
 			} finally {
 				if (null != canvas) {
-					//•`‰æ‚ðI—¹
+					//ï¿½`ï¿½ï¿½ï¿½Iï¿½ï¿½
 					mHolder.unlockCanvasAndPost(canvas);
 				}
 			}
 
-			// ƒ‹[ƒv‚ªˆê’èŽžŠÔ‚ÌŠÔŠu‚Å‰ñ‚é‚½‚ß‚Ìˆ—
+			// ï¿½ï¿½ï¿½[ï¿½vï¿½ï¿½ï¿½ï¿½èŽžï¿½Ô‚ÌŠÔŠuï¿½Å‰ï¿½é‚½ï¿½ß‚Ìï¿½ï¿½ï¿½
 			now = System.currentTimeMillis();
-			loop_time = now - lastTime;		// ƒ‹[ƒv‚PŽü•ª‚ÌŽžŠÔ for Debug
+			loop_time = now - lastTime;		// ï¿½ï¿½ï¿½[ï¿½vï¿½Pï¿½ï¿½ÌŽï¿½ï¿½ï¿½ for Debug
 			sleep_time = CYCLE_TIME - (now - start_time);
 			lastTime = now;
 
-			//ƒXƒŠ[ƒv
+			//ï¿½Xï¿½ï¿½ï¿½[ï¿½v
 			try {
 				Thread.sleep(sleep_time);
 			} catch (Exception e) {
