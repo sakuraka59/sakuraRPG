@@ -32,15 +32,14 @@ public class mainView extends View {
 	public mainView(Context context) {
 		super(context);
 	}
-
 	    
-	//�`�ʏ���
+	//drow main view
     @Override
     public void onDraw(Canvas c) {
     	c.drawBitmap(IMG_LIGHT, touch_x, touch_y, paint);
     }
     
-    //�^�b�`��͏���
+    //touch main event
     public boolean onTouchEvent(MotionEvent me) {
     	touch_x = (int)(me.getX());
     	touch_y = (int)(me.getY());
