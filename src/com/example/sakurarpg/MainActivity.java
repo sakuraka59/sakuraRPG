@@ -11,13 +11,20 @@ public class MainActivity extends Activity {
 	 @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //画面を縦方向で固定する
+        // screen to length
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        //レイアウトを用意する
+        // no drow title
+   		requestWindowFeature(Window.FEATURE_NO_TITLE);
+   		// GameViewを画面としてセットする
+   		mainView mainView = new mainView(this);
+   		setContentView(mainView);
+   		/*
+        // set layout
         LinearLayout l = new LinearLayout(this);
         setContentView(l);
-        //Viewをセットする
+        // set view
         l.addView(new mainView(this));
+        */
     }
     
 }
