@@ -7,8 +7,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.view.SurfaceHolder;
+import android.view.MotionEvent;
 
 public class gameMain extends Thread {
 	// システム全体の変数
@@ -19,8 +19,6 @@ public class gameMain extends Thread {
 
 	// 画像関係
 	private Bitmap				imgVdGame;							// ���z��ʂ�r�b�g�}�b�v�������C���[�W(Game)
-	private Bitmap				imgEnemy;							// �G�摜
-	private Rect				rctEnemyOriginalSize;				// �G�̃I���W�i���摜�T�C�Y
 
 	// 画面関係
 	private static final int	VD_WIDTH	= 480;					// ���z��ʁi���j
@@ -37,16 +35,12 @@ public class gameMain extends Thread {
 		this.mHolder = surfaceHolder;
 
 		// リソースのインスタンスを取得
-		Resources r = context.getResources();
+		Resources resources = context.getResources();
 
 		// 各画像をインスタンス化
 		imgVdGame = Bitmap.createBitmap(VD_WIDTH, VD_HEIGHT, Bitmap.Config.ARGB_8888);
-		imgEnemy = BitmapFactory.decodeResource(r, R.drawable.light);
 
-		// 敵画像のオリジナルサイズを取得
-		rctEnemyOriginalSize = new Rect(0, 0, imgEnemy.getWidth(), imgEnemy.getHeight());
-
-		hoge = new testOtherObject(context);
+		hoge = new testOtherObject(resources);
 
 	}
 
@@ -56,43 +50,6 @@ public class gameMain extends Thread {
 	}
 
 	/*********************** 内部処理 ***********************/
-// ***** 敵の処理 *****
-	// 敵の動作
-	public Rect		rctOriginalCurrentSize;	// オリジナルサイズの敵画像の現在のnCountに応じたサイズ
-	public Rect		rctCurrentArea;			// 仮想画面上の現在の占有座標
-	public int		nCount = 1;				// bAlive=true, bAppearance=trueのとき出現時の動作（０→MAX）
-	// balive=true, bAppearance=falseのとき 引っ込む時の動作（MAX→０）
-	// bAlive=falseのときはやられたときの動作（０～MAX：やられ処理）
-	public int		nAddition = +1;			// nCountの増分
-
-	private static final int	ENEMY_COUNT_MAX = 10;				// 敵の最大動作回数
-
-	private void moveEnemy() {
-		if(0 >= nCount) {
-			// 引っ込みきったので折り返して出現させる
-			nAddition = +1;
-		} else if(0 < nAddition && ENEMY_COUNT_MAX <= nCount) {
-			// 最大サイズまで出現した場合
-			// 増分をマイナスにする
-			nAddition = -1;
-		} else {
-			// 特に何もしない
-		}
-		// nCountを加算する
-		nCount += nAddition;
-
-		/// オリジナルサイズの敵画像のサイズを更新
-		// nCountから高さを算出
-		int height = (int)(rctEnemyOriginalSize.bottom * nCount / ENEMY_COUNT_MAX);
-		rctOriginalCurrentSize = new Rect(rctEnemyOriginalSize.left, rctEnemyOriginalSize.top,
-										  rctEnemyOriginalSize.right, height);
-
-		// 現在の敵の座標を更新
-		// まずはnCountから高さを算出
-		height = (int)(rctEnemyOriginalSize.bottom * nCount / ENEMY_COUNT_MAX);
-		rctCurrentArea = new Rect(rctEnemyOriginalSize.left, rctEnemyOriginalSize.bottom - height,
-								  rctEnemyOriginalSize.right, rctEnemyOriginalSize.bottom);
-	}
 
 // ***** 画面関係の処理 *****
 	// 仮想画面（ビットマップ）を生成する
@@ -108,8 +65,6 @@ public class gameMain extends Thread {
 		// 背景を塗りつぶし
 		canvas.drawColor(Color.argb(255, 0, 0, 32));
 
-		// 敵の貼り付け
-		canvas.drawBitmap(imgEnemy, rctOriginalCurrentSize, rctCurrentArea, paint);
 	}
 
 // ***** 画面関係の処理 *****
@@ -130,7 +85,7 @@ public class gameMain extends Thread {
 // ***** メイン処理 *****
 	private void main() {
 		/// 敵情報更新
-		moveEnemy();
+//		moveEnemy();
 
 		// 仮想画面生成
 		genVirtualDisplay();
@@ -192,5 +147,9 @@ public class gameMain extends Thread {
 			} catch (Exception e) {
 			}
 		}
+	}
+	//タッチ入力処理
+	public boolean onTouchEvent(MotionEvent me) {
+		return true;
 	}
 }

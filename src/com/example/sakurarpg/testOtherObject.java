@@ -12,9 +12,9 @@ import android.view.SurfaceHolder;
 
 public class testOtherObject {
 	private Bitmap imgValue;
-	public testOtherObject(Context context) {
-		Resources r = context.getResources();
-		imgValue = BitmapFactory.decodeResource(r, R.drawable.light);
+	public testOtherObject(Resources resources) {
+	//	Resources r = context.getResources();
+		imgValue = BitmapFactory.decodeResource(resources, R.drawable.light);
 	}
 	public void doDraw(Canvas canvas) {
 		Paint paint=new Paint();
