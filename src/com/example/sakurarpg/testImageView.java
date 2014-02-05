@@ -11,133 +11,133 @@ import android.graphics.Rect;
 import android.view.SurfaceHolder;
 
 class testImageView extends Thread {
-	// �V�X�e���S�̂̕ϐ�
-	private SurfaceHolder		mHolder;							// �T�[�t�F�C�X�z���_�[
+	// システム全体の変数
+	private SurfaceHolder		mHolder;							// サーフェイスホルダー
 
-	// �X���b�h�֌W
-	private static final int	CYCLE_TIME	= 50;					// �T�C�N���^�C��=50ms
+	// スレッド関係
+	private static final int	CYCLE_TIME	= 50;					// サイクルタイム=50ms
 
-	// �摜�֌W
+	// 画像関係
 	private Bitmap				imgVdGame;							// ���z��ʂ�r�b�g�}�b�v�������C���[�W(Game)
 	private Bitmap				imgEnemy;							// �G�摜
 	private Rect				rctEnemyOriginalSize;				// �G�̃I���W�i���摜�T�C�Y
 
-	// ��ʊ֌W
+	// 画面関係
 	private static final int	VD_WIDTH	= 480;					// ���z��ʁi���j
 	private static final int	VD_HEIGHT	= 854;					// ���z��ʁi�����j
 
-	// �e��t���O
+	// 各種フラグ
 	private boolean				bRunning	= false;				// ���C�����[�v����t���O�i�O���A�N�Z�X�j
 
 	testOtherObject hoge;
 	
-/*********************** �O������Ă΂�郁�\�b�h ***********************/
-	// �R���X�g���N�^
+/*********************** 外部から呼ばれるメソッド ***********************/
+	// コンストラクタ
 	public testImageView(SurfaceHolder surfaceHolder, Context context) {
 		this.mHolder = surfaceHolder;
 
-		// ���\�[�X�̃C���X�^���X��擾
+		// リソースのインスタンスを取得
 		Resources r = context.getResources();
 
-		// �e�摜��C���X�^���X��
+		// 各画像をインスタンス化
 		imgVdGame = Bitmap.createBitmap(VD_WIDTH, VD_HEIGHT, Bitmap.Config.ARGB_8888);
 		imgEnemy = BitmapFactory.decodeResource(r, R.drawable.light);
 
-		// �G�摜�̃I���W�i���T�C�Y��擾
+		// 敵画像のオリジナルサイズを取得
 		rctEnemyOriginalSize = new Rect(0, 0, imgEnemy.getWidth(), imgEnemy.getHeight());
 		
 		hoge = new testOtherObject(context);
 		
 	}
 
-	// ���C�����[�v�̓��싖�ݒ�
+	// メインループの動作許可設定
 	public void enableRunning(boolean flag) {
 		this.bRunning = flag;		// ���C�����[�v���싖��
 	}
 
-/*********************** ������ ***********************/
-// ***** �G�̏��� *****
-	// �G�̓���
-	public Rect		rctOriginalCurrentSize;	// �I���W�i���T�C�Y�̓G�摜�̌��݂�nCount�ɉ������T�C�Y
-	public Rect		rctCurrentArea;			// ���z��ʏ�̌��݂̐�L��W
-	public int		nCount = 1;				// bAlive=true, bAppearance=true�̂Ƃ��o�����̓���i�O��MAX�j
-											// balive=true, bAppearance=false�̂Ƃ� �����ގ��̓���iMAX���O�j
-											// bAlive=false�̂Ƃ��͂��ꂽ�Ƃ��̓���i�O�`MAX�F���ꏈ���j
-	public int		nAddition = +1;			// nCount�̑���
+/*********************** 内部処理 ***********************/
+// ***** 敵の処理 *****
+	// 敵の動作
+	public Rect		rctOriginalCurrentSize;	// オリジナルサイズの敵画像の現在のnCountに応じたサイズ
+	public Rect		rctCurrentArea;			// 仮想画面上の現在の占有座標
+	public int		nCount = 1;				// bAlive=true, bAppearance=trueのとき出現時の動作（０→MAX）
+											// balive=true, bAppearance=falseのとき 引っ込む時の動作（MAX→０）
+											// bAlive=falseのときはやられたときの動作（０～MAX：やられ処理）
+	public int		nAddition = +1;			// nCountの増分
 
-	private static final int	ENEMY_COUNT_MAX = 10;				// �G�̍ő哮���
+	private static final int	ENEMY_COUNT_MAX = 10;				// 敵の最大動作回数
 
 	private void moveEnemy() {
 		if(0 >= nCount) {
-			// �����݂�����̂Ő܂�Ԃ��ďo��������
+			// 引っ込みきったので折り返して出現させる
 			nAddition = +1;
 		} else if(0 < nAddition && ENEMY_COUNT_MAX <= nCount) {
-			// �ő�T�C�Y�܂ŏo�������ꍇ
-			// ������}�C�i�X�ɂ���
+			// 最大サイズまで出現した場合
+			// 増分をマイナスにする
 			nAddition = -1;
 		} else {
-			;	// ��ɉ����Ȃ�
+			// 特に何もしない
 		}
-		// nCount���Z����
+		// nCountを加算する
 		nCount += nAddition;
 
-		// �I���W�i���T�C�Y�̓G�摜�̃T�C�Y��X�V
-		// nCount���獂����Z�o
+		/// オリジナルサイズの敵画像のサイズを更新
+		// nCountから高さを算出
 		int height = (int)(rctEnemyOriginalSize.bottom * nCount / ENEMY_COUNT_MAX);
 		rctOriginalCurrentSize = new Rect(rctEnemyOriginalSize.left, rctEnemyOriginalSize.top,
 				rctEnemyOriginalSize.right, height);
 
-		// ���݂̓G�̍�W��X�V
-		// �܂���nCount���獂����Z�o
+		// 現在の敵の座標を更新
+		// まずはnCountから高さを算出
 		height = (int)(rctEnemyOriginalSize.bottom * nCount / ENEMY_COUNT_MAX);
 		rctCurrentArea = new Rect(rctEnemyOriginalSize.left, rctEnemyOriginalSize.bottom - height,
 				rctEnemyOriginalSize.right, rctEnemyOriginalSize.bottom);
 	}
 
-// ***** ��ʊ֌W�̏��� *****
-	// ���z��ʁi�r�b�g�}�b�v�j�𐶐�����
+// ***** 画面関係の処理 *****
+	// 仮想画面（ビットマップ）を生成する
 	private void genVirtualDisplay() {
-		// ���z��ʂ̉��n�𐶐�
+		// 仮想画面の下地を生成
 		Canvas canvas = new Canvas(imgVdGame);
 
-		// Paint��C���X�^���X��
+		// Paintをインスタンス化
 		Paint paint =new Paint();
 		paint.setAntiAlias(true);
 		paint.setColor(Color.argb(255, 255, 255, 255));
 
-		// �w�i��h��Ԃ�
+		// 背景を塗りつぶし
 		canvas.drawColor(Color.argb(255, 0, 0, 32));
 
-		// �G�̓\��t��
+		// 敵の貼り付け
 		canvas.drawBitmap(imgEnemy, rctOriginalCurrentSize, rctCurrentArea, paint);
 	}
 
-// ***** ��ʊ֌W�̏��� *****
-	// bmp���ʂɓ\��t��
+// ***** 画面関係の処理 *****
+	// bmpを画面に貼り付け
 	private void doDraw(Canvas canvas) {
-		// Paint��C���X�^���X��
+		/// Paintをインスタンス化
 		Paint paint=new Paint();
 		paint.setAntiAlias(true);
 		paint.setColor(Color.argb(255, 255, 255, 255));
 
-		// �w�i��h��Ԃ�
+		// 背景を塗りつぶし
 		canvas.drawColor(Color.argb(255, 0, 0, 32));
 
-		// ��������bmp�i���z��ʁj���ʂɕ\��
+		// 生成したbmp（仮想画面）を画面に表示
 		canvas.drawBitmap(imgVdGame, 0, 0, paint);
 	}
 
-// ***** ���C������ *****
+// ***** メイン処理 *****
 	private void main() {
-		// �G���X�V
+		/// 敵情報更新
 		moveEnemy();
 
-		// ���z��ʐ���
+		// 仮想画面生成
 		genVirtualDisplay();
 	}
 
-/*********************** ���C�����[�v ***********************/
-	// �X���b�h��N������ƌĂ΂��
+/*********************** メインループ ***********************/
+	// スレッドを起動すると呼ばれる
 	@Override
 	public void run() {
 		long lastTime = System.currentTimeMillis();
@@ -146,18 +146,18 @@ class testImageView extends Thread {
 		long loop_time = 0;
 		long sleep_time = 0;
 		while(bRunning) {
-			// ���[�v�J�n������L�^
+			// ループ開始時刻を記録
 			start_time = System.currentTimeMillis();
 
-			// ���C������
+			// メイン処理
 			main();
 
 			Canvas canvas = null;
 			try {
-				// �`���J�n��錾
+				// 描画を開始を宣言
 				canvas = mHolder.lockCanvas(null);
 
-				// ��ʂ�\��
+				// 画面を表示
 				doDraw(canvas);
 
 				hoge.doDraw(canvas);
@@ -175,18 +175,18 @@ class testImageView extends Thread {
 			} catch(Exception e) {
 			} finally {
 				if (null != canvas) {
-					//�`���I��
+					//描画を終了
 					mHolder.unlockCanvasAndPost(canvas);
 				}
 			}
 
-			// ���[�v����莞�Ԃ̊Ԋu�ŉ�邽�߂̏���
+			// ループが一定時間の間隔で回るための処理
 			now = System.currentTimeMillis();
-			loop_time = now - lastTime;		// ���[�v�P��̎��� for Debug
+			loop_time = now - lastTime;		// ループ１周分の時間 for Debug
 			sleep_time = CYCLE_TIME - (now - start_time);
 			lastTime = now;
 
-			//�X���[�v
+			//スリープ
 			try {
 				Thread.sleep(sleep_time);
 			} catch (Exception e) {
