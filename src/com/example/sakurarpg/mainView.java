@@ -1,6 +1,6 @@
 package com.example.sakurarpg;
 
-//	import android.view.MotionEvent;
+import android.view.MotionEvent;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -13,6 +13,8 @@ import android.view.SurfaceView;
 public class mainView extends SurfaceView implements SurfaceHolder.Callback {
 	private Context mContext; // コンテキスト
 	private gameMain mThread; // スレッドのインスタンス
+
+	
 
 	public mainView(Context context) {
 		super(context);
@@ -34,7 +36,7 @@ public class mainView extends SurfaceView implements SurfaceHolder.Callback {
 	@Override
 	public void surfaceCreated(SurfaceHolder holder) {
 		// スレッド生成しインスタンス化
-		mThread = new gameMain(holder, mContext);
+		mThread = new gameMain(holder, mContext, getWidth(), getHeight());
 
 		// スレッド内のメインループ動作を許可する
 		// 先に動作許可しておかないとスレッド起動しても直ぐ終了してしまう
@@ -43,6 +45,7 @@ public class mainView extends SurfaceView implements SurfaceHolder.Callback {
 		// スレッドを起動する
 		try {
 			mThread.start();
+			
 		} catch (IllegalThreadStateException e) {
 			// スレッド起動失敗
 		}
@@ -69,7 +72,12 @@ public class mainView extends SurfaceView implements SurfaceHolder.Callback {
 			
 			}
 		} 
-	} 
+	}
+	//タッチ入力処理
+	public boolean onTouchEvent(MotionEvent me) {
+		mThread.touchEvent(me);
+		return true;
+	}
 }
 
 /*

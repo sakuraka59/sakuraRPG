@@ -15,33 +15,52 @@ public class gameMain extends Thread {
 	private SurfaceHolder		mHolder;							// サーフェイスホルダー
 
 	// スレッド関係
-	private static final int	CYCLE_TIME	= 50;					// サイクルタイム=50ms
+	private static final int	CYCLE_TIME	= 1000/60;					// サイクルタイム=50ms
 
 	// 画像関係
 	private Bitmap				imgVdGame;							// ���z��ʂ�r�b�g�}�b�v�������C���[�W(Game)
 
 	// 画面関係
-	private static final int	VD_WIDTH	= 480;					// ���z��ʁi���j
-	private static final int	VD_HEIGHT	= 854;					// ���z��ʁi�����j
-
+//	private static final int	VD_WIDTH	= 480;					// ���z��ʁi���j
+//	private static final int	VD_HEIGHT	= 854;					// ���z��ʁi�����j
+	/** 最初にゲーム内の画面サイズを決めておく **/
+	private final int VIEW_WIDTH = 1200;
+	private final int VIEW_HEIGHT = 1800;
+	private float _view_scale = 1;
+	private float _view_w = 600;
+	private float _view_h = 900;
+	
+	
 	// 各種フラグ
 	private boolean				bRunning	= false;				// ���C�����[�v����t���O�i�O���A�N�Z�X�j
-
+	private boolean touch_flag = false;
 	testOtherObject hoge;
 
+	private float hogex;
+	private float hogey;
 	/*********************** 外部から呼ばれるメソッド ***********************/
 	// コンストラクタ
-	public gameMain(SurfaceHolder surfaceHolder, Context context) {
+	public gameMain(SurfaceHolder surfaceHolder, Context context, int view_w, int view_h) {
 		this.mHolder = surfaceHolder;
 
 		// リソースのインスタンスを取得
 		Resources resources = context.getResources();
 
 		// 各画像をインスタンス化
-		imgVdGame = Bitmap.createBitmap(VD_WIDTH, VD_HEIGHT, Bitmap.Config.ARGB_8888);
+		imgVdGame = Bitmap.createBitmap(VIEW_WIDTH, VIEW_HEIGHT, Bitmap.Config.ARGB_8888);
 
 		hoge = new testOtherObject(resources);
+		
 
+		/** SurfaceCreatedに記述 **/
+		float scaleX = (float)view_w / (float)VIEW_WIDTH;
+		float scaleY = (float)view_h / (float)VIEW_HEIGHT;
+		this._view_w = view_w;
+		this._view_h = view_h;
+		this._view_scale = scaleX > scaleY ? scaleY : scaleX;
+		
+		this.hogex = scaleX;
+		this.hogey = scaleY;
 	}
 
 	// メインループの動作許可設定
@@ -63,7 +82,7 @@ public class gameMain extends Thread {
 		paint.setColor(Color.argb(255, 255, 255, 255));
 
 		// 背景を塗りつぶし
-		canvas.drawColor(Color.argb(255, 0, 0, 32));
+		canvas.drawColor(Color.argb(255, 0, 0, 64));
 
 	}
 
@@ -112,19 +131,27 @@ public class gameMain extends Thread {
 				// 描画を開始を宣言
 				canvas = mHolder.lockCanvas(null);
 
+				/** 描画部分で記述 **/
+				
+				//canvas.translate((this._view_w - VIEW_WIDTH)/2*this._view_scale, (this._view_h - VIEW_HEIGHT)/2*this._view_scale); // 画面の中央になるように移動させる
+				canvas.scale(this._view_scale, this._view_scale); // 端末の画面に合わせて拡大・縮小する
+
 				// 画面を表示
 				doDraw(canvas);
 
 				hoge.doDraw(canvas);
-				{	// for Debug
+				
+				if (this.touch_flag == true){	// for Debug
 					Paint paint=new Paint();
 					paint.setAntiAlias(true);
 
 					paint.setTextSize(36);
 					paint.setColor(Color.YELLOW);
 					int j=2;
-					canvas.drawText("loop_time="+loop_time, 0, 40*j, paint); j++;
-					canvas.drawText("sleep_time="+sleep_time, 0, 40*j, paint); j++;
+					canvas.drawText("loop_time="+this.hogex, 0, 40*j, paint); j++;
+					canvas.drawText("sleep_time="+this.hogey, 0, 40*j, paint); j++;
+					canvas.drawText("scale="+this._view_scale, 0, 40*j, paint); j++;
+					
 				}
 
 			} catch(Exception e) {
@@ -148,8 +175,9 @@ public class gameMain extends Thread {
 			}
 		}
 	}
-	//タッチ入力処理
-	public boolean onTouchEvent(MotionEvent me) {
+	public boolean touchEvent(MotionEvent me) {
+		hoge.doUpdate(me.getX()/this._view_scale, me.getY()/this._view_scale);
+		this.touch_flag = true;
 		return true;
 	}
 }
