@@ -10,7 +10,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.view.SurfaceHolder;
 
-class testImageView extends Thread {
+public class gameMain extends Thread {
 	// システム全体の変数
 	private SurfaceHolder		mHolder;							// サーフェイスホルダー
 
@@ -30,10 +30,10 @@ class testImageView extends Thread {
 	private boolean				bRunning	= false;				// ���C�����[�v����t���O�i�O���A�N�Z�X�j
 
 	testOtherObject hoge;
-	
-/*********************** 外部から呼ばれるメソッド ***********************/
+
+	/*********************** 外部から呼ばれるメソッド ***********************/
 	// コンストラクタ
-	public testImageView(SurfaceHolder surfaceHolder, Context context) {
+	public gameMain(SurfaceHolder surfaceHolder, Context context) {
 		this.mHolder = surfaceHolder;
 
 		// リソースのインスタンスを取得
@@ -45,9 +45,9 @@ class testImageView extends Thread {
 
 		// 敵画像のオリジナルサイズを取得
 		rctEnemyOriginalSize = new Rect(0, 0, imgEnemy.getWidth(), imgEnemy.getHeight());
-		
+
 		hoge = new testOtherObject(context);
-		
+
 	}
 
 	// メインループの動作許可設定
@@ -55,14 +55,14 @@ class testImageView extends Thread {
 		this.bRunning = flag;		// ���C�����[�v���싖��
 	}
 
-/*********************** 内部処理 ***********************/
+	/*********************** 内部処理 ***********************/
 // ***** 敵の処理 *****
 	// 敵の動作
 	public Rect		rctOriginalCurrentSize;	// オリジナルサイズの敵画像の現在のnCountに応じたサイズ
 	public Rect		rctCurrentArea;			// 仮想画面上の現在の占有座標
 	public int		nCount = 1;				// bAlive=true, bAppearance=trueのとき出現時の動作（０→MAX）
-											// balive=true, bAppearance=falseのとき 引っ込む時の動作（MAX→０）
-											// bAlive=falseのときはやられたときの動作（０～MAX：やられ処理）
+	// balive=true, bAppearance=falseのとき 引っ込む時の動作（MAX→０）
+	// bAlive=falseのときはやられたときの動作（０～MAX：やられ処理）
 	public int		nAddition = +1;			// nCountの増分
 
 	private static final int	ENEMY_COUNT_MAX = 10;				// 敵の最大動作回数
@@ -85,13 +85,13 @@ class testImageView extends Thread {
 		// nCountから高さを算出
 		int height = (int)(rctEnemyOriginalSize.bottom * nCount / ENEMY_COUNT_MAX);
 		rctOriginalCurrentSize = new Rect(rctEnemyOriginalSize.left, rctEnemyOriginalSize.top,
-				rctEnemyOriginalSize.right, height);
+										  rctEnemyOriginalSize.right, height);
 
 		// 現在の敵の座標を更新
 		// まずはnCountから高さを算出
 		height = (int)(rctEnemyOriginalSize.bottom * nCount / ENEMY_COUNT_MAX);
 		rctCurrentArea = new Rect(rctEnemyOriginalSize.left, rctEnemyOriginalSize.bottom - height,
-				rctEnemyOriginalSize.right, rctEnemyOriginalSize.bottom);
+								  rctEnemyOriginalSize.right, rctEnemyOriginalSize.bottom);
 	}
 
 // ***** 画面関係の処理 *****
@@ -136,7 +136,7 @@ class testImageView extends Thread {
 		genVirtualDisplay();
 	}
 
-/*********************** メインループ ***********************/
+	/*********************** メインループ ***********************/
 	// スレッドを起動すると呼ばれる
 	@Override
 	public void run() {

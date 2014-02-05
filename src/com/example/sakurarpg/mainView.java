@@ -12,7 +12,7 @@ import android.view.SurfaceView;
 
 public class mainView extends SurfaceView implements SurfaceHolder.Callback {
 	private Context mContext; // コンテキスト
-	private testImageView mThread; // スレッドのインスタンス
+	private gameMain mThread; // スレッドのインスタンス
 
 	public mainView(Context context) {
 		super(context);
@@ -34,7 +34,7 @@ public class mainView extends SurfaceView implements SurfaceHolder.Callback {
 	@Override
 	public void surfaceCreated(SurfaceHolder holder) {
 		// スレッド生成しインスタンス化
-		mThread = new testImageView(holder, mContext);
+		mThread = new gameMain(holder, mContext);
 
 		// スレッド内のメインループ動作を許可する
 		// 先に動作許可しておかないとスレッド起動しても直ぐ終了してしまう
