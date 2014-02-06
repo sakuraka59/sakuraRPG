@@ -142,6 +142,7 @@ public class gameBase extends Thread {
 
 				this._game_main.doDraw(canvas);
 				
+				/*
 				if (this.touch_flag == true){	// for Debug
 					Paint paint=new Paint();
 					paint.setAntiAlias(true);
@@ -154,7 +155,7 @@ public class gameBase extends Thread {
 					canvas.drawText("scale="+this._view_scale, 0, 40*j, paint); j++;
 					
 				}
-
+				*/
 			} catch(Exception e) {
 			} finally {
 				if (null != canvas) {

@@ -12,7 +12,7 @@ import android.view.SurfaceView;
 
 public class mainView extends SurfaceView implements SurfaceHolder.Callback {
 	private Context mContext; // コンテキスト
-	private gameBase mThread; // スレッドのインスタンス
+	private gameBase _Thread; // スレッドのインスタンス
 
 	
 
@@ -36,15 +36,15 @@ public class mainView extends SurfaceView implements SurfaceHolder.Callback {
 	@Override
 	public void surfaceCreated(SurfaceHolder holder) {
 		// スレッド生成しインスタンス化
-		mThread = new gameBase(holder, mContext, getWidth(), getHeight());
+		this._Thread = new gameBase(holder, mContext, getWidth(), getHeight());
 
 		// スレッド内のメインループ動作を許可する
 		// 先に動作許可しておかないとスレッド起動しても直ぐ終了してしまう
-		mThread.enableRunning(true);
+		this._Thread.enableRunning(true);
 
 		// スレッドを起動する
 		try {
-			mThread.start();
+			this._Thread.start();
 			
 		} catch (IllegalThreadStateException e) {
 			// スレッド起動失敗
@@ -60,13 +60,13 @@ public class mainView extends SurfaceView implements SurfaceHolder.Callback {
 	@Override
 	public void surfaceDestroyed(SurfaceHolder holder) {
 		// スレッド内のメインループ動作を停止する
-		mThread.enableRunning(false);
+		this._Thread.enableRunning(false);
 	
 		// スレッドを確実に停止させるためwhileでループさせる
 		while (true) {
 			try {
 				// スレッドを停止させる
-				mThread.join();
+				this._Thread.join();
 				break;
 			} catch (InterruptedException e) {
 			
@@ -75,7 +75,7 @@ public class mainView extends SurfaceView implements SurfaceHolder.Callback {
 	}
 	//タッチ入力処理
 	public boolean onTouchEvent(MotionEvent me) {
-		mThread.touchEvent(me);
+		this._Thread.touchEvent(me);
 		return true;
 	}
 }
