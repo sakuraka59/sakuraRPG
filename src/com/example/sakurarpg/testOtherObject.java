@@ -14,6 +14,7 @@ public class testOtherObject {
 	private Bitmap imgValue;
 	private float _drow_x = 0;
 	private float _drow_y = 0;
+	
 	public testOtherObject(Resources resources) {
 	//	Resources r = context.getResources();
 		imgValue = BitmapFactory.decodeResource(resources, R.drawable.light);

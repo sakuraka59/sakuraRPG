@@ -34,7 +34,8 @@ public class gameBase extends Thread {
 	// 各種フラグ
 	private boolean				bRunning	= false;				// ���C�����[�v����t���O�i�O���A�N�Z�X�j
 	private boolean touch_flag = false;
-	testOtherObject hoge;
+	//testOtherObject hoge;
+	gameMain _game_main;
 
 	private float hogex;
 	private float hogey;
@@ -49,8 +50,8 @@ public class gameBase extends Thread {
 		// 各画像をインスタンス化
 		imgVdGame = Bitmap.createBitmap(VIEW_WIDTH, VIEW_HEIGHT, Bitmap.Config.ARGB_8888);
 
-		hoge = new testOtherObject(resources);
-		
+		//hoge = new testOtherObject(resources);
+		this._game_main = new gameMain(resources);
 
 		/** SurfaceCreatedに記述 **/
 		float scaleX = (float)view_w / (float)VIEW_WIDTH;
@@ -139,7 +140,7 @@ public class gameBase extends Thread {
 				// 画面を表示
 				doDraw(canvas);
 
-				hoge.doDraw(canvas);
+				this._game_main.doDraw(canvas);
 				
 				if (this.touch_flag == true){	// for Debug
 					Paint paint=new Paint();
@@ -176,7 +177,7 @@ public class gameBase extends Thread {
 		}
 	}
 	public boolean touchEvent(MotionEvent me) {
-		hoge.doUpdate(me.getX()/this._view_scale, me.getY()/this._view_scale);
+		this._game_main.doUpdate(me.getX()/this._view_scale, me.getY()/this._view_scale);
 		this.touch_flag = true;
 		return true;
 	}
