@@ -22,9 +22,17 @@ public class gameField extends uiBase {
 		this._touch_aria_x2 = 1600;
 		this._touch_aria_y2 = 1500;
 	}
+	public boolean doUpdate() {
+		boolean ret_flag = true;
+		
+		if (this._player_obj.doUpdate() == false) {
+			ret_flag = false;
+		}
+		return ret_flag;
+	}
 	@Override
 	protected boolean touchEvent(float touch_x, float touch_y) {
-		this._player_obj.doUpdate(touch_x, touch_y);
+		this._player_obj.setMovePoint(touch_x, touch_y);
 		return false;
 	}
 	

@@ -138,8 +138,9 @@ public class gameBase extends Thread {
 				canvas.scale(this._view_scale, this._view_scale); // 端末の画面に合わせて拡大・縮小する
 
 				// 画面を表示
-				doDraw(canvas);
+			//	doDraw(canvas);
 
+				this._game_main.autoUpdate();
 				this._game_main.doDraw(canvas);
 				
 				/*
@@ -178,7 +179,7 @@ public class gameBase extends Thread {
 		}
 	}
 	public boolean touchEvent(MotionEvent me) {
-		this._game_main.doUpdate(me.getX()/this._view_scale, me.getY()/this._view_scale);
+		this._game_main.manualUpdate(me.getX()/this._view_scale, me.getY()/this._view_scale);
 		this.touch_flag = true;
 		return true;
 	}

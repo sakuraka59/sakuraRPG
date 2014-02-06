@@ -16,6 +16,8 @@ public class charaBase {
 	
 	protected float _move_point_x = 0;
 	protected float _move_point_y = 0;
+	protected float _move_speed_x = 0;
+	protected float _move_speed_y = 0;
 	protected float _move_speed_base = 0;
 	
 	
@@ -26,7 +28,39 @@ public class charaBase {
 	//	Resources r = context.getResources();
 		
 	}
-	
+	public boolean doUpdate() {
+		
+		if (this._move_speed_x != 0) {
+			
+			if ((this._move_speed_x > 0 &&
+				this._drow_x + this._move_speed_x > this._move_point_x) ||
+				(this._move_speed_x < 0 &&
+				this._drow_x + this._move_speed_x < this._move_point_x) ) {
+				
+				this._drow_x = this._move_point_x;
+				this._move_speed_x = 0;
+				
+			}
+			
+			this._drow_x += this._move_speed_x;
+		}
+		
+		if (this._move_speed_y != 0) {
+
+			if ((this._move_speed_y > 0 &&
+				this._drow_y + this._move_speed_y > this._move_point_y) ||
+				(this._move_speed_y < 0 &&
+				this._drow_y + this._move_speed_y < this._move_point_y) ) {
+
+				this._drow_y = this._move_point_y;
+				this._move_speed_y = 0;
+
+			}
+
+			this._drow_y += this._move_speed_y;
+		}
+		return true;
+	}
 	// 描画関数 
 	public void doDrow(Canvas canvas) {
 		Paint paint=new Paint();

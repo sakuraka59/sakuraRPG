@@ -23,8 +23,13 @@ public class gameMain {
 		
 		
 	}
-	public void doUpdate(float touch_x, float touch_y){
+	public boolean autoUpdate() {
+		this._field_obj.doUpdate();
+		return true;
+	}
+	public void manualUpdate(float touch_x, float touch_y){
 		this._field_obj.touchCheck(touch_x, touch_y);
+		this._field_obj.doUpdate();
 		
 		this._touch_x = touch_x;
 		this._touch_y = touch_y;
@@ -33,6 +38,7 @@ public class gameMain {
 		this._field_obj.doDrow(canvas);
 		
 		// debug
+		/*
 		Paint paint=new Paint();
 		paint.setAntiAlias(true);
 		paint.setTextSize(36);
@@ -40,5 +46,7 @@ public class gameMain {
 		int j=2;
 		canvas.drawText("touch_x="+_touch_x, 0, 40*j, paint); j++;
 		canvas.drawText("touch_y="+_touch_y, 0, 40*j, paint); j++;
+		*/
+		
 	}
 }
