@@ -10,7 +10,7 @@ import android.graphics.Paint;
 import android.view.SurfaceHolder;
 import android.view.MotionEvent;
 
-public class gameMain extends Thread {
+public class gameBase extends Thread {
 	// システム全体の変数
 	private SurfaceHolder		mHolder;							// サーフェイスホルダー
 
@@ -25,7 +25,7 @@ public class gameMain extends Thread {
 //	private static final int	VD_HEIGHT	= 854;					// ���z��ʁi�����j
 	/** 最初にゲーム内の画面サイズを決めておく **/
 	private final int VIEW_WIDTH = 1200;
-	private final int VIEW_HEIGHT = 1800;
+	private final int VIEW_HEIGHT = 1700;
 	private float _view_scale = 1;
 	private float _view_w = 600;
 	private float _view_h = 900;
@@ -40,7 +40,7 @@ public class gameMain extends Thread {
 	private float hogey;
 	/*********************** 外部から呼ばれるメソッド ***********************/
 	// コンストラクタ
-	public gameMain(SurfaceHolder surfaceHolder, Context context, int view_w, int view_h) {
+	public gameBase(SurfaceHolder surfaceHolder, Context context, int view_w, int view_h) {
 		this.mHolder = surfaceHolder;
 
 		// リソースのインスタンスを取得
