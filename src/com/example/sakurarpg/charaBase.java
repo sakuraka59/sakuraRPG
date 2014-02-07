@@ -68,4 +68,18 @@ public class charaBase {
 		canvas.drawBitmap(this._img_value, this._drow_x - (this._drow_w / 2), this._drow_y - (this._drow_h / 2), paint);
 		
 	}
+	// テスト角度求める関数
+	public float angle() {
+		
+		int mx = this._drow_x - this._move_point_x;
+		int my = this._drow_y - this._move_point_y;
+
+		double degree;
+
+		if (mx == 0 && my == 0) {
+			degree = 0;
+		} else {
+			degree = Math.atan2(my, mx) * (180 / Math.PI);
+		}
+	}
 }
