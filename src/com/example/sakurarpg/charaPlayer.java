@@ -23,6 +23,7 @@ public class charaPlayer extends charaBase{
 		this._move_point_x = touch_x;
 		this._move_point_y = touch_y;
 		
+		/*
 		if (touch_x > this._drow_x) {
 			this._move_speed_x = this._move_speed_base;
 			
@@ -36,7 +37,11 @@ public class charaPlayer extends charaBase{
 		} else if (touch_y < this._drow_y) {
 			this._move_speed_y = this._move_speed_base * (-1);
 		}
+		*/
 		this._move_angle = angle();
+		this._move_speed_x = (float)(Math.cos(this._move_angle) * this._move_speed_base);
+
+		this._move_speed_y = (float)(Math.sin(this._move_angle) * this._move_speed_base);
 //		this._move_speed_y = this._move_speed_base;
 //		this._drow_x = touch_x;
 //		this._drow_y = touch_y;

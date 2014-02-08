@@ -90,6 +90,6 @@ public class charaBase {
 		} else {
 			degree = Math.atan2(my, mx) * (180 / Math.PI);
 		}
-		return degree;
+		return degree / 180;
 	}
 }
