@@ -19,6 +19,7 @@ public class charaBase {
 	protected float _move_speed_x = 0;
 	protected float _move_speed_y = 0;
 	protected float _move_speed_base = 0;
+	protected double _move_angle = 0;
 	
 	
 	protected Bitmap _img_value;
@@ -29,6 +30,7 @@ public class charaBase {
 		
 	}
 	public boolean doUpdate() {
+		
 		
 		if (this._move_speed_x != 0) {
 			
@@ -67,12 +69,19 @@ public class charaBase {
 		paint.setAntiAlias(true);
 		canvas.drawBitmap(this._img_value, this._drow_x - (this._drow_w / 2), this._drow_y - (this._drow_h / 2), paint);
 		
+		paint.setTextSize(36);
+		paint.setColor(Color.YELLOW);
+		int j=2;
+		canvas.drawText("touch_a="+this._move_angle, 0, 600+40*j, paint); j++;
+	
+		
 	}
 	// テスト角度求める関数
-	public float angle() {
+	public double angle() {
 		
-		int mx = this._drow_x - this._move_point_x;
-		int my = this._drow_y - this._move_point_y;
+		
+		float mx = this._drow_x - this._move_point_x;
+		float my = this._drow_y - this._move_point_y;
 
 		double degree;
 
@@ -81,5 +90,6 @@ public class charaBase {
 		} else {
 			degree = Math.atan2(my, mx) * (180 / Math.PI);
 		}
+		return degree;
 	}
 }
