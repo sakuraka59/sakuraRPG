@@ -38,12 +38,13 @@ public class gameField extends uiBase {
 	
 	// 描画関数 
 	public void doDrow(Canvas canvas) {
+		/*
 		Paint paint = new Paint();
 	    paint.setColor(Color.argb(255, 0, 128, 128));
 	    Rect rect = new Rect((int)this._touch_aria_x1, (int)this._touch_aria_y1, (int)this._touch_aria_x2, (int)this._touch_aria_y2);
 	    canvas.drawRect(rect, paint);
-	    
-	    this.printDebug(canvas);
+	    */
+//	    this.printDebug(canvas);
 		this._player_obj.doDrow(canvas);
 	}
 }

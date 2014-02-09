@@ -62,6 +62,8 @@ public class gameBase extends Thread {
 		
 		this.hogex = scaleX;
 		this.hogey = scaleY;
+
+		
 	}
 
 	// メインループの動作許可設定
@@ -83,12 +85,13 @@ public class gameBase extends Thread {
 		paint.setColor(Color.argb(255, 255, 255, 255));
 
 		// 背景を塗りつぶし
-		canvas.drawColor(Color.argb(255, 0, 0, 64));
+		canvas.drawColor(Color.argb(255, 0, 0, 0));
 
 	}
 
 // ***** 画面関係の処理 *****
 	// bmpを画面に貼り付け
+	// 画面の残像消しに使う
 	private void doDraw(Canvas canvas) {
 		/// Paintをインスタンス化
 		Paint paint=new Paint();
@@ -96,7 +99,7 @@ public class gameBase extends Thread {
 		paint.setColor(Color.argb(255, 255, 255, 255));
 
 		// 背景を塗りつぶし
-		canvas.drawColor(Color.argb(255, 0, 0, 32));
+		canvas.drawColor(Color.argb(255, 0, 0, 0));
 
 		// 生成したbmp（仮想画面）を画面に表示
 		canvas.drawBitmap(imgVdGame, 0, 0, paint);
@@ -108,7 +111,7 @@ public class gameBase extends Thread {
 //		moveEnemy();
 
 		// 仮想画面生成
-		genVirtualDisplay();
+//		genVirtualDisplay();
 	}
 
 	/*********************** メインループ ***********************/
@@ -138,25 +141,11 @@ public class gameBase extends Thread {
 				canvas.scale(this._view_scale, this._view_scale); // 端末の画面に合わせて拡大・縮小する
 
 				// 画面を表示
-			//	doDraw(canvas);
+				doDraw(canvas);
 
 				this._game_main.autoUpdate();
 				this._game_main.doDraw(canvas);
-				
-				/*
-				if (this.touch_flag == true){	// for Debug
-					Paint paint=new Paint();
-					paint.setAntiAlias(true);
 
-					paint.setTextSize(36);
-					paint.setColor(Color.YELLOW);
-					int j=2;
-					canvas.drawText("loop_time="+this.hogex, 0, 40*j, paint); j++;
-					canvas.drawText("sleep_time="+this.hogey, 0, 40*j, paint); j++;
-					canvas.drawText("scale="+this._view_scale, 0, 40*j, paint); j++;
-					
-				}
-				*/
 			} catch(Exception e) {
 			} finally {
 				if (null != canvas) {
@@ -176,6 +165,8 @@ public class gameBase extends Thread {
 				Thread.sleep(sleep_time);
 			} catch (Exception e) {
 			}
+			///mHolder.unlockCanvasAndPost(canvas);
+			
 		}
 	}
 	public boolean touchEvent(MotionEvent me) {

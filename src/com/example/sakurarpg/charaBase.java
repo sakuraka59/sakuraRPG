@@ -32,6 +32,7 @@ public class charaBase {
 	public boolean doUpdate() {
 		
 		
+		
 		if (this._move_speed_x != 0) {
 			
 			if ((this._move_speed_x > 0 &&
@@ -61,6 +62,7 @@ public class charaBase {
 
 			this._drow_y += this._move_speed_y;
 		}
+		
 		return true;
 	}
 	// 描画関数 
@@ -90,6 +92,6 @@ public class charaBase {
 		} else {
 			degree = Math.atan2(my, mx) * (180 / Math.PI);
 		}
-		return degree / 180;
+		return degree + 180;
 	}
 }
