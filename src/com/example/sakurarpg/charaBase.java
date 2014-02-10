@@ -1,6 +1,6 @@
 package com.example.sakurarpg;
 
-import android.content.res.Resources;
+//import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -20,19 +20,18 @@ public class charaBase {
 	protected float _move_speed_y = 0;
 	protected float _move_speed_base = 0;
 	protected double _move_angle = 0;
+//	private boolean
 	
 	
 	protected Bitmap _img_value;
 	
 	//　コンストラクタ（初期化
-	public charaBase(Resources resources) {
+	public charaBase() {
 	//	Resources r = context.getResources();
 		
 	}
 	public boolean doUpdate() {
-		
-		
-		
+
 		if (this._move_speed_x != 0) {
 			
 			if ((this._move_speed_x > 0 &&
@@ -66,16 +65,17 @@ public class charaBase {
 		return true;
 	}
 	// 描画関数 
-	public void doDrow(Canvas canvas) {
+	public void doDrow(Canvas canvas, gameField game_field_obj) {
 		Paint paint=new Paint();
 		paint.setAntiAlias(true);
-		canvas.drawBitmap(this._img_value, this._drow_x - (this._drow_w / 2), this._drow_y - (this._drow_h / 2), paint);
+		canvas.drawBitmap(this._img_value, this._drow_x - (this._drow_w / 2) + game_field_obj._camera_x, this._drow_y - (this._drow_h / 2) + game_field_obj._camera_y, paint);
 		
 		paint.setTextSize(36);
 		paint.setColor(Color.YELLOW);
 		int j=2;
 		canvas.drawText("touch_a="+this._move_angle, 0, 600+40*j, paint); j++;
-	
+//		canvas.drawText("touch_x="+this._move_point_x, 0, 600+40*j, paint); j++;
+//		canvas.drawText("touch_y="+this._move_point_y, 0, 600+40*j, paint); j++;
 		
 	}
 	// テスト角度求める関数

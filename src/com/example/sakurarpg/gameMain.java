@@ -29,7 +29,7 @@ public class gameMain {
 	}
 	public void manualUpdate(float touch_x, float touch_y){
 		this._field_obj.touchCheck(touch_x, touch_y);
-		this._field_obj.doUpdate();
+//		this._field_obj.doUpdate();
 		
 		this._touch_x = touch_x;
 		this._touch_y = touch_y;
