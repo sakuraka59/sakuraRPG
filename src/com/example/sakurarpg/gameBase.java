@@ -141,7 +141,7 @@ public class gameBase extends Thread {
 				canvas.scale(this._view_scale, this._view_scale); // 端末の画面に合わせて拡大・縮小する
 
 				// 画面を表示
-				doDraw(canvas);
+				this.doDraw(canvas);
 
 				this._game_main.autoUpdate();
 				this._game_main.doDraw(canvas);

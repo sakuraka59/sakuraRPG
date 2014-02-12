@@ -2,6 +2,7 @@ package com.example.sakurarpg;
 
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
+import android.graphics.*;
 
 public class charaPlayer extends charaBase{
 	
@@ -31,7 +32,30 @@ public class charaPlayer extends charaBase{
 	
 		
 		return true;
-	} 
+	}
+
+	@Override
+	public void doDrow(Canvas canvas, gameField game_field_obj)	{
+
+		// touch point effect
+		float point_x = this._move_point_x + game_field_obj._camera_x;
+		float point_y = this._move_point_y + game_field_obj._camera_y;
+		
+		Paint paint=new Paint();
+		paint.setAntiAlias(true);
+		paint.setColor(Color.argb(255, 255, 255, 255));
+		Rect rect = new Rect(
+			(int)(point_x - 1),
+			(int)(point_y - 1),
+			(int)(point_x + 1),
+			(int)(point_y + 1)
+		);
+		canvas.drawRect(rect, paint);
+		// TODO: Implement this method
+		super.doDrow(canvas, game_field_obj);
+	}
+	
+ 
 	
 	public void setMovePoint(float touch_x, float touch_y) {
 //		this._move_point_x = touch_x + game_field_obj._camera_x;

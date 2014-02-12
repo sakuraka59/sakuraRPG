@@ -66,9 +66,9 @@ public class gameField extends uiBase {
 	public void doDrow(Canvas canvas) {
 		
 		Paint paint = new Paint();
-//	    paint.setColor(Color.argb(255, 0, 128, 128));
-//	    Rect rect = new Rect((int)this._touch_aria_x1, (int)this._touch_aria_y1, (int)this._touch_aria_x2, (int)this._touch_aria_y2);
-//	    canvas.drawRect(rect, paint);
+	    paint.setColor(Color.argb(255, 0, 64, 128));
+	    Rect rect = new Rect((int)this._touch_aria_x1, (int)this._touch_aria_y1, (int)this._touch_aria_x2, (int)this._touch_aria_y2);
+	    canvas.drawRect(rect, paint);
 //	    
 //	    this.printDebug(canvas);
 		paint.setTextSize(36);
@@ -80,4 +80,5 @@ public class gameField extends uiBase {
 		this._map_obj.doDrow(canvas, this);
 		this._player_obj.doDrow(canvas, this);
 	}
+	
 }

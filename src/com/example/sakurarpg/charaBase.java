@@ -68,7 +68,7 @@ public class charaBase {
 	public void doDrow(Canvas canvas, gameField game_field_obj) {
 		Paint paint=new Paint();
 		paint.setAntiAlias(true);
-		canvas.drawBitmap(this._img_value, this._drow_x - (this._drow_w / 2) + game_field_obj._camera_x, this._drow_y - (this._drow_h / 2) + game_field_obj._camera_y, paint);
+		canvas.drawBitmap(this._img_value, this._drow_x - (this._drow_w / 2) + game_field_obj._camera_x, this._drow_y - (this._drow_h / 4 * 3) + game_field_obj._camera_y, paint);
 		
 		paint.setTextSize(36);
 		paint.setColor(Color.YELLOW);
