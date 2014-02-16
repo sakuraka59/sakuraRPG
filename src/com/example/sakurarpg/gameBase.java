@@ -15,7 +15,7 @@ public class gameBase extends Thread {
 	private SurfaceHolder		mHolder;							// サーフェイスホルダー
 
 	// スレッド関係
-	private static final int	CYCLE_TIME	= 1000/60;					// サイクルタイム=50ms
+	private static final int	CYCLE_TIME	= 1000/30;					// サイクルタイム=50ms
 
 	// 画像関係
 	private Bitmap				imgVdGame;							// ���z��ʂ�r�b�g�}�b�v�������C���[�W(Game)
@@ -145,6 +145,16 @@ public class gameBase extends Thread {
 
 				this._game_main.autoUpdate();
 				this._game_main.doDraw(canvas);
+				
+				Paint paint = new Paint();
+				paint.setTextSize(36);
+				paint.setColor(Color.YELLOW);
+				int j=2;
+				canvas.drawText("roop_time="+loop_time, 0, 0+40*j, paint); j++;
+				canvas.drawText("fps="+(1000 / loop_time), 0, 0+40*j, paint); j++;
+				canvas.drawText("sleep_time="+sleep_time, 0, 0+40*j, paint); j++;
+				
+				
 
 			} catch(Exception e) {
 			} finally {
@@ -160,6 +170,7 @@ public class gameBase extends Thread {
 			sleep_time = CYCLE_TIME - (now - start_time);
 			lastTime = now;
 
+			
 			//スリープ
 			try {
 				Thread.sleep(sleep_time);

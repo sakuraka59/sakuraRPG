@@ -12,8 +12,8 @@ import android.animation.*;
 public class fieldMap {
 	private Bitmap _test_img_value;
 	
-	private int chip_w = 40 + 1;
-	private int chip_h = 40 + 1;
+	private int chip_w = 80 + 1;
+	private int chip_h = 80 + 1;
 	
 	public fieldMap(Resources resources) {
 		super();
@@ -36,16 +36,41 @@ public class fieldMap {
 //		canvas.drawBitmap(this._test_img_value, base_x, base_y, paint);
 		paint.setColor(Color.argb(255, 255, 255, 255));
 
-		for (int x = 0; x < 10; x++) {
-			this.testMapChip(
-				canvas,
-				Color.argb(255, 0, 255, 128),
-				(int)(Math.floor(base_x + x * (this.chip_w -1))),
-				base_y + 0,
-				paint
-			);
-		}
+		int set_color = 0;
+		mapLoad map_load_obj = new mapLoad();
+		map_load_obj.setMapData();
+		int[][] map_main = map_load_obj.getMapData();
 		
+		
+		for (int x = 0; x < 20; x++) {
+			for (int y = 0; y < 20; y++){
+				
+				if ((Math.floor(base_x + x * (this.chip_w -1))) < game_field_obj._touch_aria_x1 + (this.chip_w *(-1)) ||
+					(Math.floor(base_x + x * (this.chip_w -1))) > game_field_obj._touch_aria_x2 ||
+					(Math.floor(base_y + y * (this.chip_h -1))) < game_field_obj._touch_aria_y1 - (this.chip_h *(-1)) ||
+					(Math.floor(base_y + y * (this.chip_h -1))) > game_field_obj._touch_aria_y2) {
+					
+					continue;
+				}
+				
+				switch (map_main[y][x]) {
+					case 100:
+						set_color = Color.argb(255, 0, 255, 128);
+						break;
+					case 200:
+						set_color = Color.argb(255, 128, 0, 64);
+				}
+			
+				this.testMapChip(
+					canvas,
+					set_color,
+					(int)(Math.floor(base_x + x * (this.chip_w -1))),
+					(int)(Math.floor(base_y + y * (this.chip_h -1))),
+					paint
+				);
+			}
+		}
+		// */
 		/*
 		Rect rect = new Rect(
 			(int)(base_x + 10),
@@ -56,13 +81,7 @@ public class fieldMap {
 		canvas.drawRect(rect, paint);
 		*/
 		
-		paint.setTextSize(18);
-		paint.setColor(Color.YELLOW);
-		canvas.drawText("hoge",
-			game_field_obj._camera_x + (game_field_obj._touch_aria_x1 + game_field_obj._touch_aria_x2)/2,
-			game_field_obj._camera_y + (game_field_obj._touch_aria_y1 + game_field_obj._touch_aria_y2)/2,
-			paint
-		);
+
 //		canvas.drawText("touch_x="+this._move_point_x, 0, 600+40*j, paint); j++;
 //		canvas.drawText("touch_y="+this._move_point_y, 0, 600+40*j, paint); j++;
 

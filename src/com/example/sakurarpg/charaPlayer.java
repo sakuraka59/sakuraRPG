@@ -19,7 +19,7 @@ public class charaPlayer extends charaBase{
 		this._move_point_x = this._drow_x;
 		this._move_point_y = this._drow_y;
 
-		this._move_speed_base = 2.0f;
+		this._move_speed_base = 4.0f;
 	}
 
 	@Override
@@ -45,10 +45,10 @@ public class charaPlayer extends charaBase{
 		paint.setAntiAlias(true);
 		paint.setColor(Color.argb(255, 255, 255, 255));
 		Rect rect = new Rect(
-			(int)(point_x - 1),
-			(int)(point_y - 1),
-			(int)(point_x + 1),
-			(int)(point_y + 1)
+			(int)(point_x - 5),
+			(int)(point_y - 3),
+			(int)(point_x + 5),
+			(int)(point_y + 3)
 		);
 		canvas.drawRect(rect, paint);
 		// TODO: Implement this method
