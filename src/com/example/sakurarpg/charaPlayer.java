@@ -6,6 +6,7 @@ import android.graphics.*;
 
 public class charaPlayer extends charaBase{
 	
+	
 	public charaPlayer(Resources resources) {
 		super();
 		// TODO Auto-generated constructor stub
@@ -20,6 +21,8 @@ public class charaPlayer extends charaBase{
 		this._move_point_y = this._drow_y;
 
 		this._move_speed_base = 4.0f;
+		
+	//	this._action_status = 2;
 	}
 
 	@Override
@@ -45,31 +48,64 @@ public class charaPlayer extends charaBase{
 		paint.setAntiAlias(true);
 		paint.setColor(Color.argb(255, 255, 255, 255));
 		Rect rect = new Rect(
-			(int)(point_x - 5),
-			(int)(point_y - 3),
-			(int)(point_x + 5),
-			(int)(point_y + 3)
+			(int)(point_x - 2),
+			(int)(point_y - 2),
+			(int)(point_x + 2),
+			(int)(point_y + 2)
 		);
 		canvas.drawRect(rect, paint);
+		
+		int setting_x = 6;
+		int setting_y = 4;
+		rect = new Rect(
+			(int)(point_x - 2 - setting_x),
+			(int)(point_y - 2 - setting_y),
+			(int)(point_x + 2 - setting_x),
+			(int)(point_y + 2 - setting_y)
+		);
+		canvas.drawRect(rect, paint);
+		
+		
+		rect = new Rect(
+			(int)(point_x - 2 + setting_x),
+			(int)(point_y - 2 - setting_y),
+			(int)(point_x + 2 + setting_x),
+			(int)(point_y + 2 - setting_y)
+		);
+		canvas.drawRect(rect, paint);
+		
+		
+		rect = new Rect(
+			(int)(point_x - 2 + setting_x),
+			(int)(point_y - 2 + setting_y),
+			(int)(point_x + 2 + setting_x),
+			(int)(point_y + 2 + setting_y)
+		);
+		canvas.drawRect(rect, paint);
+		
+		
+		rect = new Rect(
+			(int)(point_x - 2 - setting_x),
+			(int)(point_y - 2 + setting_y),
+			(int)(point_x + 2 - setting_x),
+			(int)(point_y + 2 + setting_y)
+		);
+		canvas.drawRect(rect, paint);
+		
 		// TODO: Implement this method
 		super.doDrow(canvas, game_field_obj);
+		
+		paint.setTextSize(36);
+		paint.setColor(Color.YELLOW);
+		int j=2;
+		canvas.drawText("touch_a="+this._move_angle, 0, 600+40*j, paint); j++;
+		canvas.drawText("enemy_x="+this._lock_chara_obj._drow_x, 0, 600+40*j, paint); j++;
+		canvas.drawText("enemy_y="+this._lock_chara_obj._drow_y, 0, 600+40*j, paint); j++;
+		
 	}
 	
+	public void setLockEnemy(charaNpc enemy_obj) {
+		this._lock_chara_obj = enemy_obj;
+	}
  
-	
-	public void setMovePoint(float touch_x, float touch_y) {
-//		this._move_point_x = touch_x + game_field_obj._camera_x;
-//		this._move_point_y = touch_y + game_field_obj._camera_y;
-
-		this._move_point_x = touch_x;
-		this._move_point_y = touch_y;
-		
-		
-		this._move_angle = angle();
-		this._move_speed_x = (float)(Math.cos(this._move_angle * Math.PI / 180 ) * this._move_speed_base);
-
-		this._move_speed_y = (float)(Math.sin(this._move_angle * Math.PI / 180 ) * this._move_speed_base);
-
-
-	}
 }

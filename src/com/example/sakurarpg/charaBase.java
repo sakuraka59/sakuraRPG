@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import java.util.*;
 
 public class charaBase {
 	// キャラクターの表示座標等
@@ -20,7 +21,20 @@ public class charaBase {
 	protected float _move_speed_y = 0;
 	protected float _move_speed_base = 0;
 	protected double _move_angle = 0;
-//	private boolean
+	
+	protected float _stop_to_range = 50;
+	
+	
+	protected charaBase _lock_chara_obj;
+	
+	//-----------------------------------
+	//	0:	stop
+	//	1:	move
+	//	2:	attack move
+	//	11:	attack
+	//	12:	damage hit
+	//-----------------------------------
+	protected int _action_status = 0;
 	
 	
 	protected Bitmap _img_value;
@@ -32,55 +46,96 @@ public class charaBase {
 	}
 	public boolean doUpdate() {
 
-		if (this._move_speed_x != 0) {
-			
-			if ((this._move_speed_x > 0 &&
-				this._drow_x + this._move_speed_x > this._move_point_x) ||
-				(this._move_speed_x < 0 &&
-				this._drow_x + this._move_speed_x < this._move_point_x) ) {
-				
-				this._drow_x = this._move_point_x;
-				this._move_speed_x = 0;
-				
-			}
-			
-			this._drow_x += this._move_speed_x;
+		switch (this._action_status) {
+			case 0:
+			case 1:
+				this.normalMove();
+				break;
+			case 2:
+				this.targetApproachMove();
+				break;
 		}
-		
-		if (this._move_speed_y != 0) {
-
-			if ((this._move_speed_y > 0 &&
-				this._drow_y + this._move_speed_y > this._move_point_y) ||
-				(this._move_speed_y < 0 &&
-				this._drow_y + this._move_speed_y < this._move_point_y) ) {
-
-				this._drow_y = this._move_point_y;
-				this._move_speed_y = 0;
-
-			}
-
-			this._drow_y += this._move_speed_y;
-		}
-		
 		return true;
+	}
+	//-------------------------------
+	//	action method
+	//-------------------------------
+	private void normalMove() {
+		if (this._action_status <= 10) {
+			if (this._move_speed_x != 0) {
+
+				if ((this._move_speed_x > 0 &&
+					this._drow_x + this._move_speed_x > this._move_point_x) ||
+					(this._move_speed_x < 0 &&
+					this._drow_x + this._move_speed_x < this._move_point_x) ) {
+
+					this._drow_x = this._move_point_x;
+					this._move_speed_x = 0;
+
+				}
+
+				this._drow_x += this._move_speed_x;
+			}
+
+			if (this._move_speed_y != 0) {
+
+				if ((this._move_speed_y > 0 &&
+					this._drow_y + this._move_speed_y > this._move_point_y) ||
+					(this._move_speed_y < 0 &&
+					this._drow_y + this._move_speed_y < this._move_point_y) ) {
+
+					this._drow_y = this._move_point_y;
+					this._move_speed_y = 0;
+
+				}
+
+				this._drow_y += this._move_speed_y;
+			}
+		}
+	}
+	private void targetApproachMove() {
+		this.setMovePoint(this._lock_chara_obj._drow_x, this._lock_chara_obj._drow_y);
+		
+		double target_range = this.getTargetRange(this._drow_x, this._drow_y, this._lock_chara_obj._drow_x, this._lock_chara_obj._drow_y);
+		if (this._stop_to_range > target_range) {
+			this._move_speed_x = 0;
+			this._move_speed_y = 0;
+			this._move_point_x = this._drow_x;
+			this._move_point_y = this._drow_y;
+			// todo not attack
+			this._action_status = 1;
+		} else {
+			this.normalMove();
+		}
 	}
 	// 描画関数 
 	public void doDrow(Canvas canvas, gameField game_field_obj) {
 		Paint paint=new Paint();
 		paint.setAntiAlias(true);
 		canvas.drawBitmap(this._img_value, this._drow_x - (this._drow_w / 2) + game_field_obj._camera_x, this._drow_y - (this._drow_h / 4 * 3) + game_field_obj._camera_y, paint);
-		
-		paint.setTextSize(36);
-		paint.setColor(Color.YELLOW);
-		int j=2;
-		canvas.drawText("touch_a="+this._move_angle, 0, 600+40*j, paint); j++;
-//		canvas.drawText("touch_x="+this._move_point_x, 0, 600+40*j, paint); j++;
-//		canvas.drawText("touch_y="+this._move_point_y, 0, 600+40*j, paint); j++;
-		
 	}
-	// テスト角度求める関数
-	public double angle() {
+
+	
+	public void setMovePoint(float touch_x, float touch_y) {
+//		this._move_point_x = touch_x + game_field_obj._camera_x;
+//		this._move_point_y = touch_y + game_field_obj._camera_y;
+
+		this._move_point_x = touch_x;
+		this._move_point_y = touch_y;
 		
+		this._action_status = 1;
+	
+		this.setMoveSpeed();
+	}
+	public void setMoveSpeed() {
+		this._move_angle = angle();
+		this._move_speed_x = (float)(Math.cos(this._move_angle * Math.PI / 180 ) * this._move_speed_base);
+
+		this._move_speed_y = (float)(Math.sin(this._move_angle * Math.PI / 180 ) * this._move_speed_base);
+
+	}
+	// 角度求める関数
+	public double angle() {
 		
 		float mx = this._drow_x - this._move_point_x;
 		float my = this._drow_y - this._move_point_y;
@@ -94,4 +149,31 @@ public class charaBase {
 		}
 		return degree + 180;
 	}
+	
+	public double getTargetRange(float x1, float y1, float x2, float y2){
+		double dx = Math.pow(x1 - x2, 2);
+		double dy = Math.pow(y1 - y2, 2);
+		double distance = Math.sqrt(dx + dy);
+		return distance;
+	}
+	
+	public float getDrowX() {
+		return this._drow_x;
+	}
+	public float getDrowY() {
+		return this._drow_y;
+	}
+	public float getMovePointX() {
+		return this._move_point_x;
+	}
+	public float getMovePointY() {
+		return this._move_point_y;
+	}
+	public float getMoveSpeedX() {
+		return this._move_speed_x;
+	}
+	public float getMoveSpeedY() {
+		return this._move_speed_y;
+	}
+	
 }

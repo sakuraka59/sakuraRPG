@@ -181,7 +181,7 @@ public class gameBase extends Thread {
 		}
 	}
 	public boolean touchEvent(MotionEvent me) {
-		this._game_main.manualUpdate(me.getX()/this._view_scale, me.getY()/this._view_scale);
+		this._game_main.manualUpdate(me.getX()/this._view_scale, me.getY()/this._view_scale, me);
 		this.touch_flag = true;
 		return true;
 	}
