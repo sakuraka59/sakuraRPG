@@ -94,7 +94,11 @@ public class charaBase {
 		}
 	}
 	private void targetApproachMove() {
-		this.setMovePoint(this._lock_chara_obj._drow_x, this._lock_chara_obj._drow_y);
+		// action_status変えたくないので、個別に処理する
+		//this.setMovePoint(this._lock_chara_obj._drow_x, this._lock_chara_obj._drow_y);
+		this._move_point_x = touch_x;
+		this._move_point_y = touch_y;
+		this.setMoveSpeed();
 		
 		double target_range = this.getTargetRange(this._drow_x, this._drow_y, this._lock_chara_obj._drow_x, this._lock_chara_obj._drow_y);
 		if (this._stop_to_range > target_range) {
