@@ -95,17 +95,30 @@ public class charaPlayer extends charaBase{
 		// TODO: Implement this method
 		super.doDrow(canvas, game_field_obj);
 		
+		if (this._lock_chara_obj instanceof charaBase){
+			int set_x = 10;
+			int set_y = 5;
+			int setdrow_x = (int)(this._lock_chara_obj._drow_x + game_field_obj._camera_x);
+			int setdrow_y = (int)(this._lock_chara_obj._drow_y + game_field_obj._camera_y) - 100;
+			
+			rect = new Rect(
+				(int)(setdrow_x - set_x),
+				(int)(setdrow_y - set_y),
+				(int)(setdrow_x + set_x),
+				(int)(setdrow_y + set_y)
+			);
+			canvas.drawRect(rect, paint);
+		}
+		
+		
 		paint.setTextSize(36);
 		paint.setColor(Color.YELLOW);
 		int j=2;
 		canvas.drawText("touch_a="+this._move_angle, 0, 600+40*j, paint); j++;
-		canvas.drawText("enemy_x="+this._lock_chara_obj._drow_x, 0, 600+40*j, paint); j++;
-		canvas.drawText("enemy_y="+this._lock_chara_obj._drow_y, 0, 600+40*j, paint); j++;
+//		canvas.drawText("enemy_x="+this._lock_chara_obj._drow_x, 0, 600+40*j, paint); j++;
+//		canvas.drawText("enemy_y="+this._lock_chara_obj._drow_y, 0, 600+40*j, paint); j++;
 		
 	}
 	
-	public void setLockEnemy(charaNpc enemy_obj) {
-		this._lock_chara_obj = enemy_obj;
-	}
- 
+	
 }

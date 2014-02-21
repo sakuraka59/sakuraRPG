@@ -27,8 +27,8 @@ public class gameBase extends Thread {
 	private final int VIEW_WIDTH = 1200;
 	private final int VIEW_HEIGHT = 1700;
 	private float _view_scale = 1;
-	private float _view_w = 600;
-	private float _view_h = 900;
+	private float _view_w;
+	private float _view_h;
 	
 	
 	// 各種フラグ

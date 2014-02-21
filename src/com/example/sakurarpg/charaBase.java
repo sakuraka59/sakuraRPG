@@ -94,10 +94,11 @@ public class charaBase {
 		}
 	}
 	private void targetApproachMove() {
+		/*
 		// action_status変えたくないので、個別に処理する
 		//this.setMovePoint(this._lock_chara_obj._drow_x, this._lock_chara_obj._drow_y);
-		this._move_point_x = touch_x;
-		this._move_point_y = touch_y;
+		this._move_point_x = this._lock_chara_obj._drow_x;
+		this._move_point_y = this._lock_chara_obj._drow_y;
 		this.setMoveSpeed();
 		
 		double target_range = this.getTargetRange(this._drow_x, this._drow_y, this._lock_chara_obj._drow_x, this._lock_chara_obj._drow_y);
@@ -111,6 +112,7 @@ public class charaBase {
 		} else {
 			this.normalMove();
 		}
+		*/
 	}
 	// 描画関数 
 	public void doDrow(Canvas canvas, gameField game_field_obj) {
@@ -160,24 +162,8 @@ public class charaBase {
 		double distance = Math.sqrt(dx + dy);
 		return distance;
 	}
-	
-	public float getDrowX() {
-		return this._drow_x;
-	}
-	public float getDrowY() {
-		return this._drow_y;
-	}
-	public float getMovePointX() {
-		return this._move_point_x;
-	}
-	public float getMovePointY() {
-		return this._move_point_y;
-	}
-	public float getMoveSpeedX() {
-		return this._move_speed_x;
-	}
-	public float getMoveSpeedY() {
-		return this._move_speed_y;
+	public void setLockEnemy(charaNpc enemy_obj) {
+		this._lock_chara_obj = enemy_obj;
 	}
 	
 }

@@ -33,7 +33,7 @@ public class gameField extends uiBase {
 		this._touch_aria_x2 = 1600;
 		this._touch_aria_y2 = 1500;
 		
-		this._player_obj.setLockEnemy(this._enemy_obj_list[0]);
+	//	this._player_obj.setLockEnemy(this._enemy_obj_list[0]);
 	}
 	public boolean doUpdate() {
 		boolean ret_flag = true;
@@ -83,22 +83,20 @@ public class gameField extends uiBase {
 			if (//*
 			touch_point_x >= this._enemy_obj_list[0]._drow_x - (test_width / 2) &&
 			touch_point_x <= this._enemy_obj_list[0]._drow_x + (test_width / 2) &&
-			/*/
 			touch_point_y >= this._enemy_obj_list[0]._drow_y - (test_width / 2) &&
-			touch_point_y <= this._enemy_obj_list[0]._drow_y + (test_width / 2)
-			// */
+			touch_point_y <= this._enemy_obj_list[0]._drow_y + (test_width / 2) &&
 			this._touch_lock_status == 0
 			) {
 				
 				// npc target lock
 				this._player_obj._lock_chara_obj = this._enemy_obj_list[0];
-				this._player_obj._action_status = 2;
+			//	this._player_obj._action_status = 2;
 				this._touch_lock_status = -1;
 				
 			} else if (this._touch_lock_status >= 0){
 				
 				// chara move
-			//	this._player_obj.setMovePoint(touch_point_x, touch_point_y);
+				this._player_obj.setMovePoint(touch_point_x, touch_point_y);
 				this._touch_lock_status = 1;
 			}
 		}
