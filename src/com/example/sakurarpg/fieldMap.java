@@ -27,8 +27,8 @@ public class fieldMap {
 	
 	public void doDrow(Canvas canvas, gameField game_field_obj) {
 		
-		float base_x = game_field_obj._touch_aria_x1 + game_field_obj._camera_x;
-		float base_y = game_field_obj._touch_aria_y1 + game_field_obj._camera_y;
+		float base_x = game_field_obj._touch_aria_x1 - game_field_obj._camera_x;
+		float base_y = game_field_obj._touch_aria_y1 - game_field_obj._camera_y;
 		
 		Paint paint=new Paint();
 		paint.setAntiAlias(true);
@@ -45,10 +45,10 @@ public class fieldMap {
 		for (int x = 0; x < 20; x++) {
 			for (int y = 0; y < 20; y++){
 				
-				if ((Math.floor(base_x + x * (this.chip_w -1))) < game_field_obj._touch_aria_x1 + (this.chip_w *(-1)) ||
-					(Math.floor(base_x + x * (this.chip_w -1))) > game_field_obj._touch_aria_x2 ||
-					(Math.floor(base_y + y * (this.chip_h -1))) < game_field_obj._touch_aria_y1 - (this.chip_h *(-1)) ||
-					(Math.floor(base_y + y * (this.chip_h -1))) > game_field_obj._touch_aria_y2) {
+				if ((Math.floor(base_x + x * (this.chip_w -1))) < game_field_obj._view_aria_x1 + (this.chip_w *(-1)) ||
+					(Math.floor(base_x + x * (this.chip_w -1))) > game_field_obj._view_aria_x2 ||
+					(Math.floor(base_y + y * (this.chip_h -1))) < game_field_obj._view_aria_y1 - (this.chip_h *(-1)) ||
+					(Math.floor(base_y + y * (this.chip_h -1))) > game_field_obj._view_aria_y2) {
 					
 					continue;
 				}

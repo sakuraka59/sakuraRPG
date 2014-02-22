@@ -1,4 +1,6 @@
+/*
 package com.example.sakurarpg;
+
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -34,3 +36,4 @@ public class testOtherObject {
 		
 	}
 }
+*/

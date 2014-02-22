@@ -94,31 +94,50 @@ public class charaBase {
 		}
 	}
 	private void targetApproachMove() {
-		/*
-		// action_status変えたくないので、個別に処理する
-		//this.setMovePoint(this._lock_chara_obj._drow_x, this._lock_chara_obj._drow_y);
-		this._move_point_x = this._lock_chara_obj._drow_x;
-		this._move_point_y = this._lock_chara_obj._drow_y;
-		this.setMoveSpeed();
 		
-		double target_range = this.getTargetRange(this._drow_x, this._drow_y, this._lock_chara_obj._drow_x, this._lock_chara_obj._drow_y);
-		if (this._stop_to_range > target_range) {
-			this._move_speed_x = 0;
-			this._move_speed_y = 0;
-			this._move_point_x = this._drow_x;
-			this._move_point_y = this._drow_y;
-			// todo not attack
-			this._action_status = 1;
-		} else {
-			this.normalMove();
+		if (this._lock_chara_obj instanceof charaBase) {
+			// action_status変えたくないので、個別に処理する
+			//this.setMovePoint(this._lock_chara_obj._drow_x, this._lock_chara_obj._drow_y);
+			this._move_point_x = this._lock_chara_obj._drow_x;
+			this._move_point_y = this._lock_chara_obj._drow_y;
+			this.setMoveSpeed();
+			
+			double target_range = this.getTargetRange(this._drow_x, this._drow_y, this._lock_chara_obj._drow_x, this._lock_chara_obj._drow_y);
+			if (this._stop_to_range > target_range) {
+				this._move_speed_x = 0;
+				this._move_speed_y = 0;
+				this._move_point_x = this._drow_x;
+				this._move_point_y = this._drow_y;
+				// todo not attack
+				this._action_status = 1;
+			} else {
+				this.normalMove();
+			}
 		}
-		*/
+		
 	}
 	// 描画関数 
 	public void doDrow(Canvas canvas, gameField game_field_obj) {
 		Paint paint=new Paint();
 		paint.setAntiAlias(true);
-		canvas.drawBitmap(this._img_value, this._drow_x - (this._drow_w / 2) + game_field_obj._camera_x, this._drow_y - (this._drow_h / 4 * 3) + game_field_obj._camera_y, paint);
+		
+		float check_x = game_field_obj._view_aria_x1 + game_field_obj._camera_x - this._drow_w;
+		float check_x2 = game_field_obj._view_aria_x2 + game_field_obj._camera_x + this._drow_w;
+		float check_y = game_field_obj._view_aria_y1 + game_field_obj._camera_y - this._drow_h;
+		float check_y2 = game_field_obj._view_aria_y2 + game_field_obj._camera_y + this._drow_h * 2;
+		/*
+		if ((Math.floor(base_x + (this._drow_x -1))) < game_field_obj._touch_aria_x1 + (this._drow_w *(-1)) ||
+			(Math.floor(base_x + (this._drow_x -1))) > game_field_obj._touch_aria_x2 ||
+			(Math.floor(base_y + (this._drow_y -1))) < game_field_obj._touch_aria_y1 - (this._drow_h *(-1)) ||
+			(Math.floor(base_y + (this._drow_y -1))) > game_field_obj._touch_aria_y2) {
+			return;
+		}
+		*/
+		if (this._drow_x < check_x || this._drow_x > check_x2 ||
+			this._drow_y < check_y || this._drow_y > check_y2) {
+			return;
+		}
+		canvas.drawBitmap(this._img_value, this._drow_x - (this._drow_w / 2) - game_field_obj._camera_x, this._drow_y - (this._drow_h / 4 * 3) - game_field_obj._camera_y, paint);
 	}
 
 	

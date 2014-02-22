@@ -10,7 +10,7 @@ public class charaNpc extends charaBase {
 	public charaNpc(Resources resources) {
 		super();
 		// TODO Auto-generated constructor stub
-		this._img_value = BitmapFactory.decodeResource(resources, R.drawable.teto_front);
+		this._img_value = BitmapFactory.decodeResource(resources, R.drawable.sakkyun_front);
 		this._drow_w = this._img_value.getWidth();
 		this._drow_h = this._img_value.getHeight();
 
@@ -24,7 +24,7 @@ public class charaNpc extends charaBase {
 		
 		this.setMovePoint(900, 800);
 	}
-	@Override
+
 	public boolean doUpdate(gameField _field_obj) {
 		// TODO: Implement this method
 		if(super.doUpdate() == false){

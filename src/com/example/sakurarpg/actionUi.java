@@ -7,14 +7,15 @@ public class actionUi extends uiBase {
 	private actionButton _attackButtonObj;
 	public actionUi(charaPlayer player_obj) {
 		this._touch_aria_x1 = 0;
-		this._touch_aria_y1 = 1500;
+		this._touch_aria_y1 = 1350;
 		this._touch_aria_x2 = 1200;
-		this._touch_aria_y2 = 1700;
+		this._touch_aria_y2 = 1500;
 		
 		this._player_obj = player_obj;
-		this._attackButtonObj = new actionButton(this._player_obj, 50, 1550, 150, 1650);
+		this._attackButtonObj = new actionButton(this._player_obj, 20, 1370, 120, 1470);
 	}
 	protected boolean touchEvent(float touch_x, float touch_y, int touch_action) {
+		this._attackButtonObj.touchCheck(touch_x, touch_y, touch_action);
 		return false;
 	}
 	public void doDrow(Canvas canvas) {

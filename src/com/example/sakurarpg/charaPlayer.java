@@ -25,7 +25,6 @@ public class charaPlayer extends charaBase{
 	//	this._action_status = 2;
 	}
 
-	@Override
 	public boolean doUpdate(gameField _field_obj) {
 		// TODO: Implement this method
 		if(super.doUpdate() == false){
@@ -41,8 +40,8 @@ public class charaPlayer extends charaBase{
 	public void doDrow(Canvas canvas, gameField game_field_obj)	{
 
 		// touch point effect
-		float point_x = this._move_point_x + game_field_obj._camera_x;
-		float point_y = this._move_point_y + game_field_obj._camera_y;
+		float point_x = this._move_point_x - game_field_obj._camera_x;
+		float point_y = this._move_point_y - game_field_obj._camera_y;
 		
 		Paint paint=new Paint();
 		paint.setAntiAlias(true);
@@ -95,11 +94,12 @@ public class charaPlayer extends charaBase{
 		// TODO: Implement this method
 		super.doDrow(canvas, game_field_obj);
 		
+		// lock npc chara point
 		if (this._lock_chara_obj instanceof charaBase){
 			int set_x = 10;
 			int set_y = 5;
-			int setdrow_x = (int)(this._lock_chara_obj._drow_x + game_field_obj._camera_x);
-			int setdrow_y = (int)(this._lock_chara_obj._drow_y + game_field_obj._camera_y) - 100;
+			int setdrow_x = (int)(this._lock_chara_obj._drow_x - game_field_obj._camera_x);
+			int setdrow_y = (int)(this._lock_chara_obj._drow_y - game_field_obj._camera_y) - 100;
 			
 			rect = new Rect(
 				(int)(setdrow_x - set_x),
