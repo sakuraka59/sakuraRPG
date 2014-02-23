@@ -114,7 +114,13 @@ public class charaPlayer extends charaBase{
 		paint.setTextSize(36);
 		paint.setColor(Color.YELLOW);
 		int j=2;
-		canvas.drawText("touch_a="+this._move_angle, 0, 600+40*j, paint); j++;
+		canvas.drawText("chara_speed="+this._move_speed_base, 0, 600+40*j, paint); j++;
+		/*
+		if (this._set_skill_obj instanceof skillBase) {
+			canvas.drawText("skill_move_num = "+this._set_skill_obj._move_frame, 0, 600+40*j, paint); j++;
+			canvas.drawText("skill_move_max = "+this._set_skill_obj._skill_chara_move[this._set_skill_obj._move_num][2], 0, 600+40*j, paint); j++;
+		}
+		*/
 //		canvas.drawText("enemy_x="+this._lock_chara_obj._drow_x, 0, 600+40*j, paint); j++;
 //		canvas.drawText("enemy_y="+this._lock_chara_obj._drow_y, 0, 600+40*j, paint); j++;
 		

@@ -20,7 +20,7 @@ public class gameField extends uiBase {
 	
 	protected float _view_aria_x1 = 0;	//0
 	protected float _view_aria_y1 = 150;	//300
-	protected float _view_aria_x2 = 1600;	//1600
+	protected float _view_aria_x2 = 1200;	//1600
 	protected float _view_aria_y2 = 1350;	//1500;
 	
 	public float _camera_x = 0;
@@ -40,7 +40,7 @@ public class gameField extends uiBase {
 		
 		this._touch_aria_x1 = 0;	//0
 		this._touch_aria_y1 = 150;	//300
-		this._touch_aria_x2 = 1600;	//1600
+		this._touch_aria_x2 = 1200;	//1600
 		this._touch_aria_y2 = 1350;	//1500;
 		/*
 		this._view_aria_x1 = 0;	//0
@@ -59,10 +59,10 @@ public class gameField extends uiBase {
 		}
 		
 		// move camera ues data
+		// TODO move camera to player attack move on Bag
+		/*
 		float move_end_camera_x = this._player_obj._move_point_x - this._player_obj._drow_x;
-		float move_end_camera_y = this._player_obj._move_point_y - this._player_obj._drow_y;
-		
-		
+		float move_end_camera_y = this._player_obj._move_point_y - this._player_obj._drow_y;		
 		
 		if (this._player_obj._move_speed_x == 0 &&
 			this._player_obj._move_speed_y == 0 &&
@@ -78,7 +78,10 @@ public class gameField extends uiBase {
 			this._camera_x += this._player_obj._move_speed_x;
 			this._camera_y += this._player_obj._move_speed_y;
 		}
-		
+		*/
+		// lite camera move
+		this._camera_x = this._player_obj._drow_x - ((this._view_aria_x1 + this._view_aria_x2) / 2);
+		this._camera_y = this._player_obj._drow_y - ((this._view_aria_y1 + this._view_aria_y2) / 2);
 		// enemy update
 		if (this._enemy_obj_list[0].doUpdate(this) == false) {
 			ret_flag = false;

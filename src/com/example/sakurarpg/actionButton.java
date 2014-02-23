@@ -1,4 +1,6 @@
 package com.example.sakurarpg;
+import com.example.sakurarpg.skill.*;
+
 import android.graphics.*;
 
 public class actionButton extends uiBase {
@@ -22,8 +24,9 @@ public class actionButton extends uiBase {
 		return true;
 	}
 	public void setAction(){
-		if (this._player_obj._lock_chara_obj instanceof charaBase) {
+		if (this._player_obj._lock_chara_obj instanceof charaBase && this._player_obj._action_status <= 10) {
 			this._player_obj._action_status = 2;
+			this._player_obj._set_skill_obj = new normalAttack(this._player_obj);
 		}
 	}
 	public void doDrow(Canvas canvas){ //, gameField game_field_obj)	{

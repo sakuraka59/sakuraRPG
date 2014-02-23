@@ -20,7 +20,7 @@ public class charaNpc extends charaBase {
 		this._move_point_x = this._drow_x;
 		this._move_point_y = this._drow_y;
 
-		this._move_speed_base = 4.0f;
+		this._move_speed_base = 2.0f;
 		
 		this.setMovePoint(900, 800);
 	}
