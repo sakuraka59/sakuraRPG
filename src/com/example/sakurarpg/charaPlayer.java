@@ -22,12 +22,19 @@ public class charaPlayer extends charaBase{
 
 		this._move_speed_base = 4.0f;
 		
+		this._base_hp = 10;
+		this._max_hp = 10;
+		this._now_hp = 10;
+		
+		this._base_attack = 3;
+		this._now_attack = 3;
+		
 	//	this._action_status = 2;
 	}
 
-	public boolean doUpdate(gameField _field_obj) {
+	public boolean doUpdate(gameField field_obj) {
 		// TODO: Implement this method
-		if(super.doUpdate() == false){
+		if(super.doUpdate(field_obj) == false){
 			return false;
 		}
 		
@@ -115,6 +122,12 @@ public class charaPlayer extends charaBase{
 		paint.setColor(Color.YELLOW);
 		int j=2;
 		canvas.drawText("chara_speed="+this._move_speed_base, 0, 600+40*j, paint); j++;
+		
+		if (this._set_skill_obj instanceof skillBase) {
+			canvas.drawText("chara_skill="+this._set_skill_obj._area_num, 0, 600+40*j, paint); j++;
+			canvas.drawText("chara_skill="+this._set_skill_obj._area_max, 0, 600+40*j, paint); j++;
+			
+		}
 		/*
 		if (this._set_skill_obj instanceof skillBase) {
 			canvas.drawText("skill_move_num = "+this._set_skill_obj._move_frame, 0, 600+40*j, paint); j++;

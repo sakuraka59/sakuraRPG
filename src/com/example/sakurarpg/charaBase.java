@@ -31,6 +31,15 @@ public class charaBase {
 	
 	protected skillBase _set_skill_obj;
 	
+	//chara status
+	protected int _base_hp;
+	protected int _max_hp;
+	protected int _now_hp;
+	
+	protected int _base_attack;
+	protected int _now_attack;
+	
+	protected int _abnormal_state = 0;
 	//-----------------------------------
 	//	0:	stop
 	//	1:	move
@@ -50,7 +59,7 @@ public class charaBase {
 		
 	}
 	//-------------------------------------------
-	public boolean doUpdate() {
+	public boolean doUpdate(gameField field_obj) {
 
 		switch (this._action_status) {
 			case 0:
@@ -153,7 +162,16 @@ public class charaBase {
 			this._drow_y < check_y || this._drow_y > check_y2) {
 			return;
 		}
-		canvas.drawBitmap(this._img_value, this._drow_x - (this._drow_w / 2) - game_field_obj._camera_x, this._drow_y - (this._drow_h / 4 * 3) - game_field_obj._camera_y, paint);
+		float drow_x = this._drow_x - (this._drow_w / 2) - game_field_obj._camera_x;
+		float drow_y = this._drow_y - (this._drow_h / 4 * 3) - game_field_obj._camera_y;
+		canvas.drawBitmap(this._img_value, drow_x, drow_y, paint);
+		
+		paint.setTextSize(18);
+		paint.setColor(Color.BLACK);
+		int j=0;
+		canvas.drawText("hp="+this._now_hp, drow_x, drow_y+120+20*j, paint); j++;
+		canvas.drawText("state="+this._abnormal_state, drow_x, drow_y+120+20*j, paint); j++;
+		
 	}
 
 	//-------------------------------------------
@@ -193,6 +211,20 @@ public class charaBase {
 		return degree + 180;
 	}
 	
+	public double getTargetAngle(float x1, float y1, float x2, float y2) {
+
+		float mx = x1 - x2;
+		float my = y1 - y2;
+
+		double degree;
+
+		if (mx == 0 && my == 0) {
+			degree = 0;
+		} else {
+			degree = Math.atan2(my, mx) * (180 / Math.PI);
+		}
+		return degree + 180;
+	}
 	public double getTargetRange(float x1, float y1, float x2, float y2){
 		double dx = Math.pow(x1 - x2, 2);
 		double dy = Math.pow(y1 - y2, 2);
@@ -202,5 +234,7 @@ public class charaBase {
 	public void setLockEnemy(charaNpc enemy_obj) {
 		this._lock_chara_obj = enemy_obj;
 	}
-	
+	public void damage() {
+		this._now_hp -= 1;
+	}
 }

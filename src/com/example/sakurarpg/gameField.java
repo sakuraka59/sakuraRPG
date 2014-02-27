@@ -1,14 +1,14 @@
 package com.example.sakurarpg;
 
-import android.content.res.Resources;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Rect;
+import android.content.res.*;
+import android.graphics.*;
+import java.util.*;
 
 public class gameField extends uiBase {
 	private charaPlayer _player_obj;
-	private charaNpc[] _enemy_obj_list;
+//	private charaNpc[] _enemy_obj_list;
+	private ArrayList<charaNpc> _enemy_obj_list = new ArrayList<charaNpc>();
+	public ArrayList<charaBase> _all_chara_obj_list  = new ArrayList<charaBase>();
 	private fieldMap _map_obj;
 
 	// 親クラスで宣言済みなので使わないこと。
@@ -33,10 +33,19 @@ public class gameField extends uiBase {
 	public gameField(Resources resources, charaPlayer player_obj) {
 		super();
 		this._player_obj = player_obj;
+		this._all_chara_obj_list.add(player_obj);
 		this._map_obj = new fieldMap(resources);
 		
-		this._enemy_obj_list = new charaNpc[10];
-		this._enemy_obj_list[0] = new charaNpc(resources);
+	//	this._enemy_obj_list = new charaNpc[10];
+	//	this._enemy_obj_list[0] = new charaNpc(resources);
+	//	this._all_chara_obj_list[0] = this._enemy_obj_list[0];
+	
+		charaNpc test_npc_obj = new charaNpc(resources);
+		this._enemy_obj_list.add(test_npc_obj);
+		this._all_chara_obj_list.add(test_npc_obj);
+		
+		
+	//	ArrayList<charaBase> array = new ArrayList<charaBase>();
 		
 		this._touch_aria_x1 = 0;	//0
 		this._touch_aria_y1 = 150;	//300
@@ -83,7 +92,7 @@ public class gameField extends uiBase {
 		this._camera_x = this._player_obj._drow_x - ((this._view_aria_x1 + this._view_aria_x2) / 2);
 		this._camera_y = this._player_obj._drow_y - ((this._view_aria_y1 + this._view_aria_y2) / 2);
 		// enemy update
-		if (this._enemy_obj_list[0].doUpdate(this) == false) {
+		if (this._enemy_obj_list.get(0).doUpdate(this) == false) {
 			ret_flag = false;
 		}
 		
@@ -101,16 +110,17 @@ public class gameField extends uiBase {
 		int test_width = 150;
 		this.hox = touch_point_y;
 		if (this._touch_lock_status >= 0) {
+			charaNpc enemy_obj = this._enemy_obj_list.get(0);
 			if (//*
-			touch_point_x >= this._enemy_obj_list[0]._drow_x - (test_width / 2) &&
-			touch_point_x <= this._enemy_obj_list[0]._drow_x + (test_width / 2) &&
-			touch_point_y >= this._enemy_obj_list[0]._drow_y - (test_width / 2) &&
-			touch_point_y <= this._enemy_obj_list[0]._drow_y + (test_width / 2) &&
+			touch_point_x >= enemy_obj._drow_x - (test_width / 2) &&
+			touch_point_x <= enemy_obj._drow_x + (test_width / 2) &&
+			touch_point_y >= enemy_obj._drow_y - (test_width / 2) &&
+			touch_point_y <= enemy_obj._drow_y + (test_width / 2) &&
 			this._touch_lock_status == 0
 			) {
 				
 				// npc target lock
-				this._player_obj._lock_chara_obj = this._enemy_obj_list[0];
+				this._player_obj._lock_chara_obj = enemy_obj;
 			//	this._player_obj._action_status = 2;
 				this._touch_lock_status = -1;
 				
@@ -134,7 +144,7 @@ public class gameField extends uiBase {
 		
 		this._map_obj.doDrow(canvas, this);
 		this._player_obj.doDrow(canvas, this);
-		this._enemy_obj_list[0].doDrow(canvas, this);
+		this._enemy_obj_list.get(0).doDrow(canvas, this);
 		
 //*
 		Paint paint = new Paint();
@@ -157,5 +167,7 @@ public class gameField extends uiBase {
 //	
 		
 	}
-	
+	public ArrayList<charaBase> getCharaList(){
+		return this._all_chara_obj_list;
+	}
 }

@@ -4,15 +4,17 @@ import android.graphics.*;
 public class actionUi extends uiBase {
 
 	private charaPlayer _player_obj;
+	private gameField _field_obj;
 	private actionButton _attackButtonObj;
-	public actionUi(charaPlayer player_obj) {
+	public actionUi(charaPlayer player_obj, gameField field_obj) {
 		this._touch_aria_x1 = 0;
 		this._touch_aria_y1 = 1350;
 		this._touch_aria_x2 = 1200;
 		this._touch_aria_y2 = 1500;
 		
 		this._player_obj = player_obj;
-		this._attackButtonObj = new actionButton(this._player_obj, 20, 1370, 120, 1470);
+		this._field_obj = field_obj;
+		this._attackButtonObj = new actionButton(this._player_obj, this._field_obj, 20, 1370, 120, 1470);
 	}
 	protected boolean touchEvent(float touch_x, float touch_y, int touch_action) {
 		this._attackButtonObj.touchCheck(touch_x, touch_y, touch_action);

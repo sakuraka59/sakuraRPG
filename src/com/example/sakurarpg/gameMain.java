@@ -26,7 +26,7 @@ public class gameMain {
 		this._player_obj = new charaPlayer(resources);
 		
 		this._field_obj = new gameField(this._resources, this._player_obj); 
-		this._action_ui_obj = new actionUi(this._player_obj);
+		this._action_ui_obj = new actionUi(this._player_obj, this._field_obj);
 		
 		
 		

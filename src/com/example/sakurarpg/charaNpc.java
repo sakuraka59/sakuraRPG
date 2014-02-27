@@ -23,11 +23,18 @@ public class charaNpc extends charaBase {
 		this._move_speed_base = 2.0f;
 		
 		this.setMovePoint(900, 800);
+		
+		this._base_hp = 10;
+		this._max_hp = 10;
+		this._now_hp = 10;
+
+		this._base_attack = 3;
+		this._now_attack = 3;
 	}
 
-	public boolean doUpdate(gameField _field_obj) {
+	public boolean doUpdate(gameField field_obj) {
 		// TODO: Implement this method
-		if(super.doUpdate() == false){
+		if(super.doUpdate(field_obj) == false){
 			return false;
 		}
 		
