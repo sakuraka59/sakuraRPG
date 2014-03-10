@@ -16,6 +16,9 @@ public class charaBase {
 	protected float _drow_w = 0;
 	protected float _drow_h = 0;
 	
+	protected float _before_x = 0;
+	protected float _before_y = 0;
+	
 	protected float _move_point_x = 0;
 	protected float _move_point_y = 0;
 	protected float _move_speed_x = 0;
@@ -61,6 +64,8 @@ public class charaBase {
 	//-------------------------------------------
 	public boolean doUpdate(gameField field_obj) {
 
+		this._before_x = this._drow_x;
+		this._before_y = this._drow_y;
 		switch (this._action_status) {
 			case 0:
 			case 1:
@@ -172,6 +177,11 @@ public class charaBase {
 		canvas.drawText("hp="+this._now_hp, drow_x, drow_y+120+20*j, paint); j++;
 		canvas.drawText("state="+this._abnormal_state, drow_x, drow_y+120+20*j, paint); j++;
 		
+		
+		if (this._set_skill_obj instanceof skillBase &&
+			this._action_status == 11) {
+			this._set_skill_obj.debugSkillRangeDrow(canvas, paint, game_field_obj);
+		}
 	}
 
 	//-------------------------------------------

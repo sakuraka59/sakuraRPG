@@ -96,6 +96,7 @@ public class gameField extends uiBase {
 			ret_flag = false;
 		}
 		
+		this._map_obj.objectHitCheck(this);
 		
 		return ret_flag;
 	}

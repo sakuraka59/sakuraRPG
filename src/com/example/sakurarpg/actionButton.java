@@ -42,10 +42,10 @@ public class actionButton extends uiBase {
 			paint.setColor(Color.argb(255, 255, 255, 255));
 		}
 		Rect rect = new Rect(
-			(int)(this._touch_aria_x1 - 2),
-			(int)(this._touch_aria_y1 - 2),
-			(int)(this._touch_aria_x2 + 2),
-			(int)(this._touch_aria_y2 + 2)
+			(int)(this._touch_aria_x1),
+			(int)(this._touch_aria_y1),
+			(int)(this._touch_aria_x2),
+			(int)(this._touch_aria_y2)
 		);
 		canvas.drawRect(rect, paint);
 		paint.setTextSize(36);

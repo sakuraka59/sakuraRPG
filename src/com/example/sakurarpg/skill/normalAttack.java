@@ -11,7 +11,9 @@ public class normalAttack extends skillBase {
 	//-----------------------------------
 	public float[][] _skill_chara_move = {
 			{	0,	1,	5},
-			{	0,	5,	10}
+			{	0,	5,	10},
+			{	0,	0,	2},
+			{	0,	15,	3}
 	};
 	
 	//-----------------------------------
@@ -19,6 +21,7 @@ public class normalAttack extends skillBase {
 	//		[type = 0, frame num, none, none, none, none]
 	//		[type = 1, frame num, center_x, center_y, width, height]
 	//		[type = 2, frame num, angle min, angle max, range min, range max]
+	//		[type = 3, frame num, none, none, none, none] hit check reset
 	//	]
 	//	frame num is first elemant only
 	//	center x and y is charaBase x and y to Relative distance
@@ -37,11 +40,34 @@ public class normalAttack extends skillBase {
 	public normalAttack(charaBase chara_obj, gameField field_obj){
 		this._start_range = 50;
 		this._move_max = this._skill_chara_move.length;
-		
+	
+		//no attack
 		this._skill_data_obj.add(new skillDataList(5));
 	//	this._skill_data_obj.get(0).setSkillArea(0, 0, 0, 0, 0);
+	
+		// set attack
 		this._skill_data_obj.add(new skillDataList(10));
-		this._skill_data_obj.get(1).setSkillArea(2, -5, 5, 0, 100);
+		this._skill_data_obj.get(1).setSkillArea(2, -50, 50, 0, 200);
+		this._skill_data_obj.get(1).setSkillArea(2, -30, 30, 0, 60);
+		
+		
+		//hit reset
+		this._skill_data_obj.add(new skillDataList(2));
+		this._skill_data_obj.get(2).setSkillArea(3, 0, 0, 0, 0);
+		
+		
+		this._skill_data_obj.add(new skillDataList(5));
+		this._skill_data_obj.get(3).setSkillArea(2, 20, 60, 0, 300);
+		this._skill_data_obj.get(3).setSkillArea(2, -40, 20, 0, 300);
+		this._skill_data_obj.get(3).setSkillArea(2, -80, -40, 0, 300);
+		/*
+		this._skill_data_obj.add(new skillDataList(1));
+		this._skill_data_obj.get(3).setSkillArea(2, 20, 60, 0, 300);
+		this._skill_data_obj.add(new skillDataList(1));
+		this._skill_data_obj.get(4).setSkillArea(2, -40, 20, 0, 300);
+		this._skill_data_obj.add(new skillDataList(1));
+		this._skill_data_obj.get(5).setSkillArea(2, -80, -40, 0, 300);
+		*/
 		
 		this._area_max = this._skill_data_obj.size();
 		this.skillInit(chara_obj, field_obj, this._skill_chara_move, this._skill_data_obj);

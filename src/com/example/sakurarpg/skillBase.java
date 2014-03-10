@@ -2,9 +2,9 @@ package com.example.sakurarpg;
 
 
 import java.util.*;
+import android.graphics.*;
 
-public class skillBase
- {
+public class skillBase {
 	protected charaBase _set_chara_obj;
 	public float _start_range;
 	
@@ -70,9 +70,9 @@ public class skillBase
 			
 		}
 		
-		boolean hoge = this.checkSkillHit();
+		boolean check_hit = this.checkSkillHit();
 		if (this._move_frame >= this._skill_chara_move[this._move_num][2]) {
-			if (this.nextSkillMove() == true) {
+			if (this.nextSkillMove() == true && check_hit == true) {
 				this.skillEnd();
 				return;
 			}
@@ -166,6 +166,11 @@ public class skillBase
 		int now_area_num = skill_data.getSkillSize();
 		// skill hit check
 		for (int i = 0; i < now_area_num; i++) {
+			skillData skill_area_data = skill_data.getSkillArea(i);
+			if (skill_area_data._skill_type == 3) {
+				this._hit_chara_obj = new ArrayList<charaBase>();
+				return false;
+			}
 			for (int j = 0; j < this._all_chara_obj.size(); j++) {
 				
 				charaBase set_chara_obj = this._set_chara_obj;
@@ -189,7 +194,6 @@ public class skillBase
 				if (set_chara_obj == check_chara_obj) {
 					continue;
 				}
-				skillData skill_area_data = skill_data.getSkillArea(i);
 				
 				// hit check
 				switch (skill_area_data._skill_type) {
@@ -217,16 +221,27 @@ public class skillBase
 						if (target_angle_min <= chara_angle &&
 							target_angle_max >= chara_angle) {
 							
-							
+							angle_check_flag = true;
 						}
-						
-						if (target_angle_min < 0) {
+						if (angle_check_flag == false && target_angle_min < 0) {
 							
+							if (chara_angle >= target_angle_min + max_angle) {
+								
+								angle_check_flag = true;
+							}
+						}
+						if (angle_check_flag == false && target_angle_max >= max_angle) {
+							
+							if (chara_angle <= target_angle_max - max_angle) {
+
+								angle_check_flag = true;
+							}
 						}
 						
 						if (
 							(float)range >= skill_area_data._check_b_1 &&
-							(float)range <= skill_area_data._check_b_2) {
+							(float)range <= skill_area_data._check_b_2 &&
+							angle_check_flag ==true ) {
 							check_chara_obj.damage();
 							this._hit_chara_obj.add(check_chara_obj);
 						}
@@ -244,5 +259,82 @@ public class skillBase
 		this._set_chara_obj._move_point_y = this._set_chara_obj._drow_y;
 		this._set_chara_obj._action_status = 12;
 		this._set_chara_obj._move_speed_base = this._set_chara_obj._move_speed_save;
+	}
+	
+	public void debugSkillRangeDrow(Canvas canvas, Paint paint, gameField game_field_obj) {
+		
+		paint.setColor(Color.RED);
+		
+		Path path = new Path();
+		float base_x = this._set_chara_obj._drow_x - game_field_obj._camera_x ;
+		float base_y = this._set_chara_obj._drow_y - game_field_obj._camera_y;
+		
+		if (this._skill_data_obj instanceof ArrayList<skillData> &&
+			this._skill_data_obj.size() > 0 &&
+			this._area_num < this._skill_data_obj.size() &&
+			this._area_num < this._area_max) {
+
+			skillDataList skill_data = this._skill_data_obj.get(this._area_num);
+		
+			int now_area_num = skill_data.getSkillSize();
+		
+			
+			for (int i = 0; i < now_area_num; i++) {
+				
+				skillData skill_area_data = skill_data.getSkillArea(i);
+			
+				float center_angle = (skill_area_data._check_a_1 + skill_area_data._check_a_2) / 2;
+				// left top
+				float set_x1 = base_x + (float)(Math.cos((this._set_chara_obj._move_angle + skill_area_data._check_a_1) * Math.PI / 180 ) * skill_area_data._check_b_2);
+				float set_y1 = base_y + (float)(Math.sin((this._set_chara_obj._move_angle + skill_area_data._check_a_1) * Math.PI / 180 ) * skill_area_data._check_b_2);
+			
+				// left bottom
+				float set_x1_2 = base_x + (float)(Math.cos((this._set_chara_obj._move_angle + skill_area_data._check_a_1) * Math.PI / 180 ) * skill_area_data._check_b_1);
+				float set_y1_2 = base_y + (float)(Math.sin((this._set_chara_obj._move_angle + skill_area_data._check_a_1) * Math.PI / 180 ) * skill_area_data._check_b_1);
+				
+				// center bottom
+				float set_x1_c = base_x + (float)(Math.cos((this._set_chara_obj._move_angle + center_angle) * Math.PI / 180 ) * skill_area_data._check_b_1);
+				float set_y1_c = base_y + (float)(Math.sin((this._set_chara_obj._move_angle + center_angle) * Math.PI / 180 ) * skill_area_data._check_b_1);
+				
+				// right top
+				float set_x2 = base_x + (float)(Math.cos((this._set_chara_obj._move_angle + skill_area_data._check_a_2) * Math.PI / 180 ) * skill_area_data._check_b_2);
+				float set_y2 = base_y + (float)(Math.sin((this._set_chara_obj._move_angle + skill_area_data._check_a_2) * Math.PI / 180 ) * skill_area_data._check_b_2);
+			
+				// center top
+				float set_x2_c = base_x + (float)(Math.cos((this._set_chara_obj._move_angle + center_angle) * Math.PI / 180 ) * skill_area_data._check_b_2);
+				float set_y2_c = base_y + (float)(Math.sin((this._set_chara_obj._move_angle + center_angle) * Math.PI / 180 ) * skill_area_data._check_b_2);
+				
+				// right bottom
+				float set_x2_2 = base_x + (float)(Math.cos((this._set_chara_obj._move_angle + skill_area_data._check_a_2) * Math.PI / 180 ) * skill_area_data._check_b_1);
+				float set_y2_2 = base_y + (float)(Math.sin((this._set_chara_obj._move_angle + skill_area_data._check_a_2) * Math.PI / 180 ) * skill_area_data._check_b_1);
+				
+//			 = (float)(Math.sin(this._set_chara_obj._move_angle * Math.PI / 180 ) * this._set_chara_obj._move_speed_base);
+				
+			
+				path.reset();
+				
+				//*
+				path.moveTo(set_x1, set_y1);
+				path.lineTo(set_x2_c, set_y2_c);
+				path.lineTo(set_x2, set_y2);
+				path.lineTo(set_x2_2, set_y2_2);
+				path.lineTo(set_x1_c, set_y1_c);
+				path.lineTo(set_x1_2, set_y1_2);
+				/*/
+				path.moveTo(set_x1, set_y1);
+			
+				path.quadTo(set_x2_c, set_y2_c, set_x2, set_y2);
+				path.lineTo(set_x2_2, set_y2_2);
+				
+				path.quadTo(set_x1_c, set_y1_c, set_x1_2, set_y1_2);
+				path.lineTo(set_x1, set_y1);
+				// */
+				path.close();
+				canvas.drawPath(path, paint);
+	//	*/
+			}
+	//
+		}
+	//	canvas.drawPath(path, paint);
 	}
 }

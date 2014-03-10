@@ -116,7 +116,7 @@ public class charaPlayer extends charaBase{
 			);
 			canvas.drawRect(rect, paint);
 		}
-		
+		/*
 		
 		paint.setTextSize(36);
 		paint.setColor(Color.YELLOW);
