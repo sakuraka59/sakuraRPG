@@ -16,7 +16,7 @@ public class skillMoveList {
 		return this._frame_num;
 	}
 
-	public void setSkillMove(float add_angle, float one_frame_speed, float frame_num) {
+	public void setSkillMove(float add_angle, float one_frame_speed, int frame_num) {
 		//		[add angle, 1frame speed, frame num]
 		this._sill_move.add(new skillMove(add_angle, one_frame_speed, frame_num));
 	}

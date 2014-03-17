@@ -36,9 +36,7 @@ public class normalAttack extends skillBase {
 		this._start_range = 50;
 		
 		switch (chara_obj.getWeaponType()) {
-			case 0:
 			
-				break;
 			default:
 				/*
 				this._skill_chara_move = {
@@ -48,6 +46,12 @@ public class normalAttack extends skillBase {
 					{	0,	15,	3}
 				};
 				*/
+				
+				this._skill_chara_move.add(new skillMove(0, 1, 5));
+				this._skill_chara_move.add(new skillMove(0, 5, 10));
+				this._skill_chara_move.add(new skillMove(0, 0, 2));
+				this._skill_chara_move.add(new skillMove(0, 15, 3));
+				
 				//no attack
 				this._skill_data_obj.add(new skillDataList(5));
 			//	this._skill_data_obj.get(0).setSkillArea(0, 0, 0, 0, 0);

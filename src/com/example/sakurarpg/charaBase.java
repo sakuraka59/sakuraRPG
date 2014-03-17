@@ -2,6 +2,7 @@ package com.example.sakurarpg;
 
 //import android.content.res.Resources;
 import android.graphics.*;
+import java.util.*;
 
 
 public class charaBase {
@@ -188,6 +189,13 @@ public class charaBase {
 		int j=0;
 		canvas.drawText("hp="+this._now_hp, drow_x, drow_y+120+20*j, paint); j++;
 		canvas.drawText("state="+this._abnormal_state, drow_x, drow_y+120+20*j, paint); j++;
+		canvas.drawText("action="+this._action_status, drow_x, drow_y+120+20*j, paint); j++;
+		
+		if (this._set_skill_obj instanceof skillBase) {
+			canvas.drawText("skill="+this._set_skill_obj._move_num, drow_x, drow_y+120+20*j, paint); j++;
+			canvas.drawText("skill="+this._set_skill_obj._move_max, drow_x, drow_y+120+20*j, paint); j++;
+			
+		}
 		
 		
 		

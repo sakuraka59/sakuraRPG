@@ -34,6 +34,7 @@ public class skillBase {
 	protected ArrayList<skillMove> _skill_chara_move = new ArrayList<skillMove>();
 	
 	protected int _move_frame = 0;
+	protected int _move_frame_max = 0;
 	protected int _move_num = 0;
 	protected int _move_max = 0;
 	private ArrayList<charaBase> _all_chara_obj = new ArrayList<charaBase>();
@@ -62,30 +63,30 @@ public class skillBase {
 	}
 	//----------------------------------------------
 	public void skillUpdate() {
-		// *
-		if (this._move_num >= this._move_max) {
+		//*
+		
+		
+		if (this._move_num >= this._move_max && this._area_num >= this._area_max) {
 			this.skillEnd();
 	//		this._set_chara_obj._action_status = 12;
 			return;
 			
 		}
 		
+		
 		boolean check_hit = this.checkSkillHit();
+		
 		if (this._move_frame >= this._skill_chara_move.get(this._move_num)._frame_num) {
 			if (this.nextSkillMove() == true && check_hit == true) {
 				this.skillEnd();
 				return;
 			}
 		}
-		/*/
-		if (this._move_frame == 0) {
-			this.charaSkillMoveSet();
-		}
-		if (this._move_frame > 30) {
+		
+		if ( check_hit == true) {
 			this.skillEnd();
 			return;
 		}
-		// */
 		// chara move
 		this._set_chara_obj._drow_x += this._set_chara_obj._move_speed_x;
 		this._set_chara_obj._drow_y += this._set_chara_obj._move_speed_y;
@@ -93,38 +94,51 @@ public class skillBase {
 		// next frame
 		this._move_frame++;
 		this._area_frame++;
-		
+		// */
 	}
 	//----------------------------------------------
 	public void charaSkillMoveSet() {
-		this._set_chara_obj._move_angle += _skill_chara_move.get(this._move_num)._add_angle;
-		this._set_chara_obj._move_speed_base = _skill_chara_move.get(this._move_num)._one_frame_speed;
-		this._set_chara_obj._move_speed_x = (float)(Math.cos(this._set_chara_obj._move_angle * Math.PI / 180 ) * this._set_chara_obj._move_speed_base);
-		this._set_chara_obj._move_speed_y = (float)(Math.sin(this._set_chara_obj._move_angle * Math.PI / 180 ) * this._set_chara_obj._move_speed_base);
-
+		
+		if (_skill_chara_move.get(this._move_num) instanceof skillMove) {
+			this._set_chara_obj._move_angle += _skill_chara_move.get(this._move_num)._add_angle;
+			this._set_chara_obj._move_speed_base = _skill_chara_move.get(this._move_num)._one_frame_speed;
+			this._set_chara_obj._move_speed_x = (float)(Math.cos(this._set_chara_obj._move_angle * Math.PI / 180 ) * this._set_chara_obj._move_speed_base);
+			this._set_chara_obj._move_speed_y = (float)(Math.sin(this._set_chara_obj._move_angle * Math.PI / 180 ) * this._set_chara_obj._move_speed_base);
+		}
+		
 	}
 	//----------------------------------------------
 	private boolean nextSkillMove(){
+		
 		if (this._move_num >= this._move_max) {
 			return true;
 		}
 		
-		while (this._move_frame >= this._skill_chara_move.get(this._move_num)._frame_num) {
+		int move_frame = 0;//this._skill_chara_move.get(this._area_num).;
+		/*
+		if (this._skill_chara_move instanceof ArrayList<skillMove>) {
+			move_frame = this._skill_chara_move.get(this._area_num)._frame_num;
+		}
+		*/
+		while (this._move_frame >= move_frame) {
 			this._move_frame = 0;
 			this._move_num++;
+			//!(this._skill_chara_move.get(this._move_num) instanceof skillMove)
 			
 			if (this._move_num >= this._move_max) {
 				return true;
 			}
 			
-			if (this._skill_chara_move.get(this._move_num)._frame_num <= 0) {
+			if (move_frame <= 0) {
 				continue;
 			}
-			this.charaSkillMoveSet();
+		//	this.charaSkillMoveSet();
+			//*/
 			
 			
 		}
 		return false;
+		//	*/
 	}
 	//----------------------------------------------
 	private boolean checkSkillHit() {
@@ -134,7 +148,7 @@ public class skillBase {
 			return true;
 		}
 		
-		int area_frame = 0;//this._skill_data_obj.get(this._area_num).getFrameNum();
+		int area_frame = this._skill_data_obj.get(this._area_num).getFrameNum();
 		if (this._skill_data_obj instanceof ArrayList<skillDataList>) {
 			area_frame = this._skill_data_obj.get(this._area_num).getFrameNum();
 		}
