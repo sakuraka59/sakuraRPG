@@ -74,19 +74,23 @@ public class skillBase {
 		}
 		
 		
+		boolean check_move = this.nextSkillMove();
 		boolean check_hit = this.checkSkillHit();
 		
+		if (check_move == true && check_hit == true) {
+			this.skillEnd();
+			return;
+		}
+		/*
 		if (this._move_frame >= this._skill_chara_move.get(this._move_num)._frame_num) {
 			if (this.nextSkillMove() == true && check_hit == true) {
 				this.skillEnd();
 				return;
 			}
 		}
+		*/
 		
-		if ( check_hit == true) {
-			this.skillEnd();
-			return;
-		}
+		
 		// chara move
 		this._set_chara_obj._drow_x += this._set_chara_obj._move_speed_x;
 		this._set_chara_obj._drow_y += this._set_chara_obj._move_speed_y;
@@ -115,11 +119,12 @@ public class skillBase {
 		}
 		
 		int move_frame = 0;//this._skill_chara_move.get(this._area_num).;
-		/*
+		
 		if (this._skill_chara_move instanceof ArrayList<skillMove>) {
 			move_frame = this._skill_chara_move.get(this._area_num)._frame_num;
 		}
-		*/
+		
+		/*
 		while (this._move_frame >= move_frame) {
 			this._move_frame = 0;
 			this._move_num++;
@@ -133,10 +138,11 @@ public class skillBase {
 				continue;
 			}
 		//	this.charaSkillMoveSet();
-			//*/
+			
 			
 			
 		}
+		*/
 		return false;
 		//	*/
 	}
