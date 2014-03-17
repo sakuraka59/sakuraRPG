@@ -31,7 +31,7 @@ public class skillBase {
 	//-----------------------------------
 	//	[add angle, 1frame speed, frame num]
 	//-----------------------------------
-	protected float _skill_chara_move[][];
+	protected ArrayList<skillMove> _skill_chara_move = new ArrayList<skillMove>();
 	
 	protected int _move_frame = 0;
 	protected int _move_num = 0;
@@ -40,7 +40,7 @@ public class skillBase {
 	private ArrayList<charaBase> _hit_chara_obj = new ArrayList<charaBase>();
 
 	// attack hit area
-	private ArrayList<skillDataList> _skill_data_obj;
+	private ArrayList<skillDataList> _skill_data_obj = new ArrayList<skillDataList>();
 	protected int _area_frame = 0;
 	protected int _area_num = 0;
 	protected int _area_max = 0;
@@ -48,7 +48,7 @@ public class skillBase {
 	public skillBase() {
 
 	}
-	public void skillInit(charaBase chara_obj, gameField field_obj,float[][] skill_chara_move, ArrayList<skillDataList> skill_data_obj) {
+	public void skillInit(charaBase chara_obj, gameField field_obj, ArrayList<skillMove> skill_chara_move, ArrayList<skillDataList> skill_data_obj) {
 	
 		this._set_chara_obj = chara_obj;
 		this._set_chara_obj._move_speed_save = this._set_chara_obj._move_speed_base;
@@ -71,7 +71,7 @@ public class skillBase {
 		}
 		
 		boolean check_hit = this.checkSkillHit();
-		if (this._move_frame >= this._skill_chara_move[this._move_num][2]) {
+		if (this._move_frame >= this._skill_chara_move.get(this._move_num)._frame_num) {
 			if (this.nextSkillMove() == true && check_hit == true) {
 				this.skillEnd();
 				return;
@@ -97,8 +97,8 @@ public class skillBase {
 	}
 	//----------------------------------------------
 	public void charaSkillMoveSet() {
-		this._set_chara_obj._move_angle += _skill_chara_move[this._move_num][0];
-		this._set_chara_obj._move_speed_base = _skill_chara_move[this._move_num][1];
+		this._set_chara_obj._move_angle += _skill_chara_move.get(this._move_num)._add_angle;
+		this._set_chara_obj._move_speed_base = _skill_chara_move.get(this._move_num)._one_frame_speed;
 		this._set_chara_obj._move_speed_x = (float)(Math.cos(this._set_chara_obj._move_angle * Math.PI / 180 ) * this._set_chara_obj._move_speed_base);
 		this._set_chara_obj._move_speed_y = (float)(Math.sin(this._set_chara_obj._move_angle * Math.PI / 180 ) * this._set_chara_obj._move_speed_base);
 
@@ -109,7 +109,7 @@ public class skillBase {
 			return true;
 		}
 		
-		while (this._move_frame >= this._skill_chara_move[this._move_num][2]) {
+		while (this._move_frame >= this._skill_chara_move.get(this._move_num)._frame_num) {
 			this._move_frame = 0;
 			this._move_num++;
 			
@@ -117,7 +117,7 @@ public class skillBase {
 				return true;
 			}
 			
-			if (this._skill_chara_move[this._move_num][2] <= 0) {
+			if (this._skill_chara_move.get(this._move_num)._frame_num <= 0) {
 				continue;
 			}
 			this.charaSkillMoveSet();

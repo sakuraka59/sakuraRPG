@@ -7,7 +7,7 @@ public class skillMoveList {
 	
 
 	private int _frame_num = 0;
-	private ArrayList<skillData> _sill_area = new ArrayList<skillData>();
+	private ArrayList<skillMove> _sill_move = new ArrayList<skillMove>();
 
 	public skillMoveList (int frame_num) {
 		this._frame_num = frame_num;
@@ -16,13 +16,14 @@ public class skillMoveList {
 		return this._frame_num;
 	}
 
-	public void setSkillArea(int type, float check_a1, float check_a2, float check_b1, float check_b2) {
-		this._sill_area.add(new skillData(type, check_a1, check_a2, check_b1, check_b2));
+	public void setSkillMove(float add_angle, float one_frame_speed, float frame_num) {
+		//		[add angle, 1frame speed, frame num]
+		this._sill_move.add(new skillMove(add_angle, one_frame_speed, frame_num));
 	}
-	public skillData getSkillArea(int index){
-		return this._sill_area.get(index);
+	public skillMove getSkillMove(int index){
+		return this._sill_move.get(index);
 	}
-	public int getSkillSize(){
-		return this._sill_area.size();
+	public int getSkillMoveSize(){
+		return this._sill_move.size();
 	}
 }

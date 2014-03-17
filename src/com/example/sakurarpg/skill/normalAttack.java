@@ -9,7 +9,7 @@ public class normalAttack extends skillBase {
 	//-----------------------------------
 	//	[add angle, 1frame speed, frame num]
 	//-----------------------------------
-	public ArrayList<skillMoveList> _skill_chara_move = new ArrayList<skillMoveList>();
+	public ArrayList<skillMove> _skill_chara_move = new ArrayList<skillMove>();
 	
 	//-----------------------------------
 	//	[
