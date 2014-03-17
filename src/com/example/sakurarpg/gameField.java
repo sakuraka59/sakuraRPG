@@ -19,7 +19,7 @@ public class gameField extends uiBase {
 //	public float _touch_aria_y2 = 1500;	//1500;
 	
 	protected float _view_aria_x1 = 0;	//0
-	protected float _view_aria_y1 = 150;	//300
+	protected float _view_aria_y1 = 0;	//300
 	protected float _view_aria_x2 = 1200;	//1600
 	protected float _view_aria_y2 = 1350;	//1500;
 	
@@ -48,7 +48,7 @@ public class gameField extends uiBase {
 	//	ArrayList<charaBase> array = new ArrayList<charaBase>();
 		
 		this._touch_aria_x1 = 0;	//0
-		this._touch_aria_y1 = 150;	//300
+		this._touch_aria_y1 = 0;	//300
 		this._touch_aria_x2 = 1200;	//1600
 		this._touch_aria_y2 = 1350;	//1500;
 		/*

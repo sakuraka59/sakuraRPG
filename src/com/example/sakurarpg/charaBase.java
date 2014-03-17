@@ -1,12 +1,7 @@
 package com.example.sakurarpg;
 
 //import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import java.util.*;
+import android.graphics.*;
 
 
 public class charaBase {
@@ -52,7 +47,14 @@ public class charaBase {
 	//	13:	damage hit
 	//-----------------------------------
 	protected int _action_status = 0;
-	
+
+	//-----------------------------------
+	//	_Weapon_type
+	//	0:	no_wepion
+	//	1:	one hand Straight sword
+	//	2:	two hand Straight sword
+	//-----------------------------------
+	protected int _weapon_type = 0;
 	
 	protected Bitmap _img_value;
 	
@@ -169,6 +171,16 @@ public class charaBase {
 		}
 		float drow_x = this._drow_x - (this._drow_w / 2) - game_field_obj._camera_x;
 		float drow_y = this._drow_y - (this._drow_h / 4 * 3) - game_field_obj._camera_y;
+		
+		paint.setColor(Color.argb(255, 255, 0, 0));
+		Rect rect = new Rect(
+			(int)Math.floor(drow_x),
+			(int)(drow_y),
+			(int)Math.ceil(drow_x + this._drow_w),
+			(int)(drow_y + this._drow_h)
+		);
+		canvas.drawRect(rect, paint);
+		
 		canvas.drawBitmap(this._img_value, drow_x, drow_y, paint);
 		
 		paint.setTextSize(18);
@@ -176,6 +188,8 @@ public class charaBase {
 		int j=0;
 		canvas.drawText("hp="+this._now_hp, drow_x, drow_y+120+20*j, paint); j++;
 		canvas.drawText("state="+this._abnormal_state, drow_x, drow_y+120+20*j, paint); j++;
+		
+		
 		
 		
 		if (this._set_skill_obj instanceof skillBase &&
@@ -246,5 +260,9 @@ public class charaBase {
 	}
 	public void damage() {
 		this._now_hp -= 1;
+	}
+	
+	public int getWeaponType() {
+		return this._weapon_type;
 	}
 }

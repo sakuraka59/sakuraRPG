@@ -116,6 +116,12 @@ public class charaPlayer extends charaBase{
 			);
 			canvas.drawRect(rect, paint);
 		}
+		paint.setColor(Color.argb(255, 255, 0, 0));
+		paint.setTextSize(36);
+		int j = 0;
+		canvas.drawText("pc x ="+this._drow_x, 0, 300+50+(30*j), paint);j++;
+		canvas.drawText("pc y="+this._drow_y, 0, 300+50+(30*j), paint);j++;
+		
 		/*
 		
 		paint.setTextSize(36);

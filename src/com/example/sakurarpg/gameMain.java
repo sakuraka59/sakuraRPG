@@ -61,8 +61,8 @@ public class gameMain {
 	//	canvas.drawText("touch_action="+_touch_action, 300, 40*j, paint); j++;
 		
 		//*
-		canvas.drawText("touch_x="+_touch_x, 0, 40*j, paint); j++;
-		canvas.drawText("touch_y="+_touch_y, 0, 40*j, paint); j++;
+		canvas.drawText("touch_x="+_touch_x, 0, 200+40*j, paint); j++;
+		canvas.drawText("touch_y="+_touch_y, 0, 200+40*j, paint); j++;
 		//*/
 		
 	}

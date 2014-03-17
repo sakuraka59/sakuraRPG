@@ -17,8 +17,11 @@ public class fieldMap {
 	private int chip_w = 80 + 1;
 	private int chip_h = 80 + 1;
 	private mapLoad map_load_obj = new mapLoad();
-	
-	private int test = 0;
+
+	private float _obj_x1 = 0;
+	private float _obj_x2 = 0;
+	private float _obj_y1 = 0;
+	private float _obj_y2 = 0;
 	
 	public fieldMap(Resources resources) {
 		super();
@@ -33,13 +36,13 @@ public class fieldMap {
 	public void objectHitCheck(gameField game_field_obj) {
 		
 		ArrayList<charaBase>chara_list = game_field_obj._all_chara_obj_list;
-		int max_num = chara_list.size();
+		int max_num = 1;//chara_list.size();
 		
 		int[][] object_list = this.map_load_obj.getObjData();
 		if (max_num > 0) {
-			this.test = 0;
+			
 			for (int i = 0; i < max_num; i++) {
-				charaBase check_chara = chara_list.get(i);
+				charaBase check_chara = chara_list.get(0);
 				
 				//	now point to map data point
 				
@@ -51,25 +54,42 @@ public class fieldMap {
 						int check_x = point_x + x - 1;
 						int check_y = point_y + y - 1;
 						
-						if (object_list[check_y][check_x] == 300) {
+						if (check_x < 0 || check_y < 0) {
+							continue;
+						}
+						
+						
+						float chara_x1 = check_chara._drow_x - (check_chara._drow_w / 2);
+						float chara_x2 = check_chara._drow_x + (check_chara._drow_w / 2);
+						float chara_y1 = check_chara._drow_y - (check_chara._drow_h / 4 * 3);
+						float chara_y2 = check_chara._drow_y + (check_chara._drow_h / 4);
+
+						float obj_x1 = check_x * (this.chip_w - 1);
+						float obj_x2 = (check_x + 1) * (this.chip_w - 1);
+						float obj_y1 = check_y * (this.chip_h - 1);
+						float obj_y2 = (check_y + 1) * (this.chip_h - 1);
+
+						this._obj_x1 = check_x;
+						this._obj_x2 = check_chara._drow_y;
+						this._obj_y1 = chara_x1;
+						this._obj_y2 = object_list[check_y][check_x];
+						
+						if (object_list[check_y][check_x] > 0) {
 							
 							///	hit check
-							float chara_x1 = check_chara._drow_x - (check_chara._drow_w / 2);
-							float chara_x2 = check_chara._drow_x + (check_chara._drow_w / 2);
-							float chara_y1 = check_chara._drow_y - (check_chara._drow_h / 2);
-							float chara_y2 = check_chara._drow_y + (check_chara._drow_h / 2);
 							
-							float obj_x1 = check_x * (this.chip_w - 1);
-							float obj_x2 = (check_x + 1) * (this.chip_w - 1);
-							float obj_y1 = check_y * (this.chip_h - 1);
-							float obj_y2 = (check_y + 1) * (this.chip_h - 1);
 							
-							if (chara_x1 <= obj_x2 && chara_x2 >= obj_x1){
+							if (chara_x1 <= obj_x2 && chara_x2 >= obj_x1 &&
+								chara_y1 <= obj_y2 && chara_y2 >= obj_y1){
+									
 								check_chara._drow_x = check_chara._before_x;
+								check_chara._drow_y = check_chara._before_y;
 								
 							}
-							this.test++;
+							
+							
 						}
+						
 					}
 				}
 				
@@ -78,8 +98,8 @@ public class fieldMap {
 	}
 	public void doDrow(Canvas canvas, gameField game_field_obj) {
 		
-		float base_x = game_field_obj._touch_aria_x1 - game_field_obj._camera_x;
-		float base_y = game_field_obj._touch_aria_y1 - game_field_obj._camera_y;
+		float base_x = game_field_obj._view_aria_x1 - game_field_obj._camera_x;
+		float base_y = game_field_obj._view_aria_y1 - game_field_obj._camera_y;
 		
 		Paint paint=new Paint();
 		paint.setAntiAlias(true);
@@ -98,7 +118,7 @@ public class fieldMap {
 				
 				if ((Math.floor(base_x + x * (this.chip_w -1))) < game_field_obj._view_aria_x1 + (this.chip_w *(-1)) ||
 					(Math.floor(base_x + x * (this.chip_w -1))) > game_field_obj._view_aria_x2 ||
-					(Math.floor(base_y + y * (this.chip_h -1))) < game_field_obj._view_aria_y1 - (this.chip_h *(-1)) ||
+					(Math.floor(base_y + y * (this.chip_h -1))) < game_field_obj._view_aria_y1 + (this.chip_h *(-1)) ||
 					(Math.floor(base_y + y * (this.chip_h -1))) > game_field_obj._view_aria_y2) {
 					
 					continue;
@@ -134,18 +154,18 @@ public class fieldMap {
 
 				if ((Math.floor(base_x + x * (this.chip_w -1))) < game_field_obj._view_aria_x1 + (this.chip_w *(-1)) ||
 					(Math.floor(base_x + x * (this.chip_w -1))) > game_field_obj._view_aria_x2 ||
-					(Math.floor(base_y + y * (this.chip_h -1))) < game_field_obj._view_aria_y1 - (this.chip_h *(-1)) ||
+					(Math.floor(base_y + y * (this.chip_h -1))) < game_field_obj._view_aria_y1 + (this.chip_h *(-1)) ||
 					(Math.floor(base_y + y * (this.chip_h -1))) > game_field_obj._view_aria_y2) {
 
 					continue;
 				}
 
-				if (obj_main[y][x] != 300) {
+				if (obj_main[y][x] != 100) {
 					continue;
 				}
 				
 				switch (obj_main[y][x]) {
-					case 300:
+					case 100:
 						set_color = Color.argb(255, 128, 128, 128);
 						break;
 					default:
@@ -174,6 +194,16 @@ public class fieldMap {
 					(int)(Math.floor(base_y + y * (this.chip_h -1))),
 					paint
 				);
+				/*
+				paint.setColor(Color.argb(255, 255, 0, 0));
+				paint.setTextSize(36);
+				int j = 0;
+				canvas.drawText("objx1="+this._obj_x1, drow_x, drow_y+50+(30*j), paint);j++;
+				canvas.drawText("objx2="+this._obj_x2, drow_x, drow_y+50+(30*j), paint);j++;
+				canvas.drawText("objy1="+this._obj_y1, drow_x, drow_y+50+(30*j), paint);j++;
+				canvas.drawText("objy2="+game_field_obj._camera_y, drow_x, drow_y+50+(30*j), paint);j++;
+				*/
+				
 			}
 		}
 		// */
@@ -187,9 +217,9 @@ public class fieldMap {
 		canvas.drawRect(rect, paint);
 		*/
 		
-		
+		paint.setColor(Color.argb(255, 255, 0, 0));
 		paint.setTextSize(36);
-		canvas.drawText("hit="+this.test, 0, 1300, paint);
+	//	canvas.drawText("hit="+this.test, 0, 1300, paint);
 		
 //		canvas.drawText("touch_x="+this._move_point_x, 0, 600+40*j, paint); j++;
 //		canvas.drawText("touch_y="+this._move_point_y, 0, 600+40*j, paint); j++;

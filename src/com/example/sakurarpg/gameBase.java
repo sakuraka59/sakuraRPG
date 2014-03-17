@@ -85,7 +85,7 @@ public class gameBase extends Thread {
 		paint.setColor(Color.argb(255, 255, 255, 255));
 
 		// 背景を塗りつぶし
-		canvas.drawColor(Color.argb(255, 0, 0, 0));
+		canvas.drawColor(Color.argb(255, 0, 0, 128));
 
 	}
 
